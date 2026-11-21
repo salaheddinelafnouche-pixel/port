@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="640" viewBox="0 0 320 640">
+  <defs>
+    <filter id="s4" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#202124" flood-opacity="0.14"/>
+    </filter>
+  </defs>
+  <rect width="320" height="640" fill="#f8f9fa"/>
+  <rect width="320" height="28" fill="#fff"/>
+  <text x="16" y="18" font-family="Roboto, Arial, sans-serif" font-size="11" font-weight="600" fill="#202124">9:41</text>
+  <circle cx="278" cy="14" r="3" fill="#34a853"/>
+  <text x="286" y="18" font-family="Roboto, Arial, sans-serif" font-size="10" fill="#5f6368">LTE</text>
+  <rect y="28" width="320" height="182" fill="#e8eee6"/>
+  <path d="M-20 170 Q70 120 160 155 T340 110" fill="none" stroke="#cfd5d8" stroke-width="12"/>
+  <path d="M20 80 L80 150 L55 230 L120 150" fill="none" stroke="#d7dce0" stroke-width="7"/>
+  <path d="M36 185 Q110 135 175 115 T295 85" fill="none" stroke="#34a853" stroke-width="4"/>
+  <circle cx="135" cy="145" r="7" fill="#1a73e8" stroke="#fff" stroke-width="2"/>
+  <rect x="12" y="40" width="196" height="40" rx="20" fill="#fff"/>
+  <path d="M28 52 L38 62 L28 72" fill="none" stroke="#5f6368" stroke-width="2"/>
+  <text x="48" y="65" font-family="Roboto, Arial, sans-serif" font-size="12" fill="#202124">Day 2 of 4</text>
+  <rect x="218" y="47" width="90" height="26" rx="13" fill="#e6f4ea"/>
+  <circle cx="231" cy="60" r="4.5" fill="#34a853"/>
+  <text x="242" y="64" font-family="Roboto, Arial, sans-serif" font-size="11" font-weight="700" fill="#137333">Hiking</text>
+  <rect y="185" width="320" height="455" rx="20" fill="#fff" filter="url(#s4)"/>
+  <rect x="136" y="196" width="48" height="4" rx="2" fill="#dadce0"/>
+  <text x="20" y="230" font-family="Roboto, Arial, sans-serif" font-size="11" fill="#1a73e8">Google Maps &#183; Hiking day plan</text>
+  <text x="20" y="258" font-family="Roboto, Arial, sans-serif" font-size="20" font-weight="700" fill="#202124">Day 2 plan</text>
+  <text x="20" y="280" font-family="Roboto, Arial, sans-serif" font-size="13" fill="#5f6368">11.4 mi &#183; +2,800 ft &#183; Backpacker</text>
+  <rect x="20" y="296" width="148" height="26" rx="13" fill="#e6f4ea"/>
+  <circle cx="36" cy="309" r="5" fill="#34a853"/>
+  <text x="48" y="313" font-family="Roboto, Arial, sans-serif" font-size="11" font-weight="600" fill="#137333">Available offline</text>
+  <rect x="20" y="338" width="280" height="58" rx="12" fill="#fef7e0" stroke="#f9ab00" stroke-width="1"/>
+  <text x="34" y="362" font-family="Roboto, Arial, sans-serif" font-size="13" font-weight="700" fill="#e37400">Steep morning</text>
+  <text x="34" y="380" font-family="Roboto, Arial, sans-serif" font-size="11" fill="#5f6368">Grade &gt; 15% for 1.8 mi &#183; start early</text>
+  <text x="20" y="424" font-family="Roboto, Arial, sans-serif" font-size="13" font-weight="700" fill="#202124">Stops on this day</text>
+  <rect x="20" y="440" width="280" height="52" rx="12" fill="#e8f0fe"/>
+  <text x="34" y="462" font-family="Roboto, Arial, sans-serif" font-size="12" font-weight="700" fill="#174ea6">Next water &#183; Granite Spring</text>
+  <text x="34" y="480" font-family="Roboto, Arial, sans-serif" font-size="11" fill="#5f6368">1.8 mi ahead &#183; +420 ft</text>
+  <rect x="20" y="502" width="280" height="42" rx="12" fill="#fce8e6"/>
+  <text x="34" y="528" font-family="Roboto, Arial, sans-serif" font-size="12" fill="#c5221f">Bailout &#183; Forest Rd 22</text>
+  <rect x="20" y="554" width="280" height="42" rx="12" fill="#f1f3f4"/>
+  <text x="34" y="580" font-family="Roboto, Arial, sans-serif" font-size="12" fill="#3c4043">Camp &#183; pine flat</text>
+</svg>

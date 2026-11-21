@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="520" viewBox="0 0 400 520">
+  <rect width="400" height="520" fill="#f4efe4"/>
+  <g opacity="0.12" stroke="#8a7f6e" stroke-width="1">
+    <path d="M28 70 H372 M28 94 H372 M28 118 H372 M28 142 H372 M28 166 H372 M28 190 H372 M28 214 H372 M28 238 H372 M28 262 H372 M28 286 H372 M28 310 H372 M28 334 H372 M28 358 H372 M28 382 H372 M28 406 H372 M28 430 H372 M28 454 H372"/>
+  </g>
+  <text x="28" y="36" font-family="'Segoe Print','Bradley Hand','Comic Sans MS',cursive" font-size="15" fill="#3a342c">WF04  corridor overview  (H1)</text>
+
+  <!-- tiny map peek -->
+  <path d="M50 60 q-3 2 -2 10 v70 q2 12 14 12 h270 q12 0 13 -12 V70 q0 -10 -12 -10z" fill="#e5e0d0" stroke="#2f2a24" stroke-width="1.6"/>
+  <path d="M80 120 q60 -30 120 -40 t100 -20" fill="none" stroke="#2f5a3a" stroke-width="2.2" stroke-linecap="round"/>
+
+  <!-- sheet pulled up - rough -->
+  <path d="M40 150 q-4 2 -3 14 v300 q2 16 18 18 h280 q16 -1 18 -18 V162 q-1 -12 -16 -14z" fill="#faf6ec" stroke="#2f2a24" stroke-width="2" stroke-linecap="round"/>
+  <path d="M170 162 q20 0 40 2" fill="none" stroke="#2f2a24" stroke-width="2" stroke-linecap="round"/>
+
+  <text x="62" y="198" font-family="'Segoe Print','Bradley Hand','Comic Sans MS',cursive" font-size="16" fill="#2f2a24">Sierra Crest Section</text>
+  <text x="62" y="220" font-family="'Segoe Print','Bradley Hand','Comic Sans MS',cursive" font-size="12" fill="#5c554a">~48 mi · 4 days · lots of gain</text>
+
+  <!-- corridor ready chip - circled -->
+  <path d="M60 240 q-2 1 0 9 v10 q1 8 12 8 h110 q10 0 11 -9 v-10 q0 -8 -11 -9z" fill="#e4efe6" stroke="#2f5a3a" stroke-width="1.8"/>
+  <text x="76" y="260" font-family="'Segoe Print','Bradley Hand','Comic Sans MS',cursive" font-size="12" fill="#2f5a3a">? corridor ready</text>
+  <ellipse cx="130" cy="255" rx="78" ry="24" fill="none" stroke="#8b4513" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <text x="210" y="248" font-family="'Segoe Print','Bradley Hand','Comic Sans MS',cursive" font-size="12" fill="#8b4513" transform="rotate(-6 210 248)">before you leave!</text>
+
+  <path d="M200 240 q-1 1 0 8 v10 q1 7 10 8 h90 q8 0 9 -8 v-11 q0 -7 -9 -8z" fill="none" stroke="#2f2a24" stroke-width="1.4"/>
+  <text x="212" y="260" font-family="'Segoe Print','Bradley Hand','Comic Sans MS',cursive" font-size="11" fill="#5c554a">backpacker</text>
+
+  <!-- day list scribbles -->
+  <g font-family="'Segoe Print','Bradley Hand','Comic Sans MS',cursive" font-size="13" fill="#3a342c">
+    <path d="M62 290 H330" stroke="#2f2a24" stroke-width="1" opacity="0.3"/>
+    <text x="62" y="310">day 1 · ~12 mi · water + camp</text>
+    <text x="62" y="338">day 2 · steep AM · crest</text>
+    <text x="62" y="366">day 3 · long traverse · bailout</text>
+    <text x="62" y="394">day 4 · down to town</text>
+  </g>
+
+  <text x="62" y="440" font-family="'Segoe Print','Bradley Hand','Comic Sans MS',cursive" font-size="12" fill="#2f5a3a">pack elev / water / camp / exits</text>
+  <text x="28" y="500" font-family="'Segoe Print','Bradley Hand','Comic Sans MS',cursive" font-size="12" fill="#6b6358">H1 · whole section stays with you</text>
+</svg>

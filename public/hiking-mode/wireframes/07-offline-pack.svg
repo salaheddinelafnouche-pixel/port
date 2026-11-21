@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="520" viewBox="0 0 400 520">
+  <rect width="400" height="520" fill="#f4efe4"/>
+  <g opacity="0.12" stroke="#8a7f6e" stroke-width="1">
+    <path d="M28 70 H372 M28 94 H372 M28 118 H372 M28 142 H372 M28 166 H372 M28 190 H372 M28 214 H372 M28 238 H372 M28 262 H372 M28 286 H372 M28 310 H372 M28 334 H372 M28 358 H372 M28 382 H372 M28 406 H372 M28 430 H372 M28 454 H372"/>
+  </g>
+  <text x="28" y="36" font-family="'Segoe Print','Bradley Hand','Comic Sans MS',cursive" font-size="15" fill="#3a342c">WF07  offline pack doodle  (H1)</text>
+
+  <text x="48" y="80" font-family="'Segoe Print','Bradley Hand','Comic Sans MS',cursive" font-size="20" fill="#2f2a24">Offline pack</text>
+  <text x="48" y="104" font-family="'Segoe Print','Bradley Hand','Comic Sans MS',cursive" font-size="13" fill="#5c554a">before bars die on the ridge…</text>
+
+  <!-- pack card rough -->
+  <path d="M48 128 l290 4 6 150 -296 2z" fill="#e8efe6" stroke="#2f5a3a" stroke-width="2" stroke-linecap="round"/>
+  <text x="68" y="162" font-family="'Segoe Print','Bradley Hand','Comic Sans MS',cursive" font-size="15" fill="#2f5a3a">Sierra Crest Section</text>
+  <text x="68" y="186" font-family="'Segoe Print','Bradley Hand','Comic Sans MS',cursive" font-size="12" fill="#5c554a">~86 MB · whole corridor</text>
+
+  <!-- big check -->
+  <circle cx="90" cy="230" r="16" fill="none" stroke="#2f5a3a" stroke-width="2.2"/>
+  <path d="M80 230 l7 8 l16 -16" fill="none" stroke="#2f5a3a" stroke-width="2.4" stroke-linecap="round"/>
+  <text x="118" y="236" font-family="'Segoe Print','Bradley Hand','Comic Sans MS',cursive" font-size="16" fill="#2f5a3a">CORRIDOR READY</text>
+
+  <text x="48" y="320" font-family="'Segoe Print','Bradley Hand','Comic Sans MS',cursive" font-size="14" fill="#2f2a24">checklist (pencil)</text>
+
+  <g font-family="'Segoe Print','Bradley Hand','Comic Sans MS',cursive" font-size="14" fill="#3a342c">
+    <path d="M55 340 h14 v14 h-14z" fill="none" stroke="#2f2a24" stroke-width="1.5"/>
+    <path d="M58 347 l4 4 l7 -8" fill="none" stroke="#2f5a3a" stroke-width="1.8"/>
+    <text x="80" y="353">elevation profile</text>
+
+    <path d="M55 372 h14 v14 h-14z" fill="none" stroke="#2f2a24" stroke-width="1.5"/>
+    <path d="M58 379 l4 4 l7 -8" fill="none" stroke="#2f5a3a" stroke-width="1.8"/>
+    <text x="80" y="385">water sources</text>
+
+    <path d="M55 404 h14 v14 h-14z" fill="none" stroke="#2f2a24" stroke-width="1.5"/>
+    <path d="M58 411 l4 4 l7 -8" fill="none" stroke="#2f5a3a" stroke-width="1.8"/>
+    <text x="80" y="417">camp spots</text>
+
+    <path d="M55 436 h14 v14 h-14z" fill="none" stroke="#2f2a24" stroke-width="1.5"/>
+    <path d="M58 443 l4 4 l7 -8" fill="none" stroke="#2f5a3a" stroke-width="1.8"/>
+    <text x="80" y="449">exits / bailouts</text>
+  </g>
+
+  <text x="250" y="380" font-family="'Segoe Print','Bradley Hand','Comic Sans MS',cursive" font-size="13" fill="#8b4513" transform="rotate(7 250 380)">day plan
+still opens
+w/ no bars</text>
+  <text x="28" y="500" font-family="'Segoe Print','Bradley Hand','Comic Sans MS',cursive" font-size="12" fill="#6b6358">H1 · pack before signal drops</text>
+</svg>

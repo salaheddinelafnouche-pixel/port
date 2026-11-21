@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="640" viewBox="0 0 320 640">
+  <rect width="320" height="640" fill="#f2f2f2"/>
+  <rect x="0" y="0" width="320" height="420" fill="#c5d4c0"/>
+  <path d="M40 400 Q90 320 120 260 T170 180" fill="none" stroke="#9e9e9e" stroke-width="4" stroke-dasharray="6 5"/>
+  <path d="M120 260 Q180 220 240 140" fill="none" stroke="#2e7d32" stroke-width="6"/>
+  <path d="M120 260 Q80 200 50 120" fill="none" stroke="#90a4ae" stroke-width="3"/>
+  <circle cx="120" cy="260" r="9" fill="#fff" stroke="#2e7d32" stroke-width="3"/>
+  <text x="136" y="248" font-family="Arial" font-size="10" font-weight="bold" fill="#1b5e20">Recommended</text>
+  <rect x="16" y="16" width="200" height="56" rx="8" fill="#fff" stroke="#2e7d32"/>
+  <text x="28" y="38" font-family="Arial" font-size="11" font-weight="bold" fill="#1b5e20">GPX vs Maps - resolved</text>
+  <text x="28" y="56" font-family="Arial" font-size="10" fill="#555">Use Maps trail line (updated)</text>
+  <rect x="16" y="340" width="130" height="64" rx="8" fill="#fff" stroke="#999"/>
+  <text x="28" y="362" font-family="Arial" font-size="11" font-weight="bold" fill="#333">Blaze legend</text>
+  <rect x="28" y="374" width="10" height="10" fill="#c62828"/>
+  <text x="44" y="383" font-family="Arial" font-size="9" fill="#555">Red - main</text>
+  <rect x="28" y="390" width="10" height="10" fill="#1565c0"/>
+  <text x="44" y="399" font-family="Arial" font-size="9" fill="#555">Blue - spur</text>
+  <rect x="0" y="420" width="320" height="220" fill="#fff"/>
+  <text x="20" y="456" font-family="Arial" font-size="16" font-weight="bold" fill="#222">Trust the fork</text>
+  <text x="20" y="480" font-family="Arial" font-size="12" fill="#666">Footpaths first - one clear line</text>
+  <rect x="20" y="500" width="280" height="40" rx="8" fill="#e8f5e9"/>
+  <text x="32" y="525" font-family="Arial" font-size="12" fill="#1b5e20">Continue on main trail - 0.4 mi</text>
+  <text x="16" y="600" font-family="Arial" font-size="12" fill="#333">H2 Trust the fork</text>
+  <text x="16" y="620" font-family="Arial" font-size="11" fill="#666">Junction - conflict - blaze legend</text>
+</svg>

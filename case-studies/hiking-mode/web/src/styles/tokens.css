@@ -1,0 +1,30 @@
+:root {
+  --maps-blue: #1a73e8;
+  --maps-blue-deep: #174ea6;
+  --maps-green: #34a853;
+  --maps-green-text: #137333;
+  --maps-green-mid: #188038;
+  --maps-green-soft: #e6f4ea;
+  --maps-red: #d93025;
+  --maps-red-text: #c5221f;
+  --maps-red-soft: #fce8e6;
+  --maps-orange: #e37400;
+  --maps-orange-soft: #fef7e0;
+  --maps-amber: #f9ab00;
+  --maps-ink: #202124;
+  --maps-ink-2: #3c4043;
+  --maps-muted: #5f6368;
+  --maps-faint: #80868b;
+  --maps-line: #dadce0;
+  --maps-chip: #f1f3f4;
+  --maps-bg: #f8f9fa;
+  --maps-terrain: #e8eee6;
+  --maps-road: #cfd5d8;
+  --maps-path: #d7dce0;
+  --maps-white: #fff;
+  --maps-blue-soft: #e8f0fe;
+  --phone-w: 360px;
+  --phone-h: 720px;
+  --shadow: 0 2px 8px rgba(32, 33, 36, 0.14);
+  --font: 'Roboto', system-ui, sans-serif;
+}

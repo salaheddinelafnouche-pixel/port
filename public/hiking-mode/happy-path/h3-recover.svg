@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="640" viewBox="0 0 320 640">
+  <rect width="320" height="640" fill="#fff"/>
+  <text x="20" y="48" font-family="Arial" font-size="18" font-weight="bold" fill="#222">Recover</text>
+  <text x="20" y="72" font-family="Arial" font-size="12" fill="#666">Works offline - calm utilities</text>
+  <rect x="20" y="96" width="280" height="88" rx="12" fill="#e3f2fd" stroke="#1565c0"/>
+  <text x="36" y="128" font-family="Arial" font-size="14" font-weight="bold" fill="#0d47a1">Next reliable water</text>
+  <text x="36" y="150" font-family="Arial" font-size="12" fill="#546e7a">Granite Spring - 1.8 mi - +420 ft</text>
+  <text x="36" y="168" font-family="Arial" font-size="11" fill="#78909c">Dry mark skipped - alternate shown</text>
+  <rect x="20" y="200" width="280" height="88" rx="12" fill="#ffebee" stroke="#c62828"/>
+  <text x="36" y="232" font-family="Arial" font-size="14" font-weight="bold" fill="#b71c1c">Nearest bailout</text>
+  <text x="36" y="254" font-family="Arial" font-size="12" fill="#666">Forest Rd 22 trailhead - 1.2 mi</text>
+  <text x="36" y="272" font-family="Arial" font-size="11" fill="#78909c">Offline route to road exit</text>
+  <rect x="20" y="304" width="280" height="72" rx="12" fill="#e8f5e9" stroke="#2e7d32"/>
+  <text x="36" y="336" font-family="Arial" font-size="14" font-weight="bold" fill="#1b5e20">Share progress</text>
+  <text x="36" y="358" font-family="Arial" font-size="12" fill="#558b2f">Live link - expires in 48 hours</text>
+  <rect x="20" y="396" width="280" height="56" rx="8" fill="#fff8e1" stroke="#f9a825"/>
+  <text x="36" y="420" font-family="Arial" font-size="13" fill="#f57f17">Advisory</text>
+  <text x="36" y="438" font-family="Arial" font-size="11" fill="#666">Wind above treeline after dark</text>
+  <rect x="16" y="480" width="288" height="44" rx="8" fill="#f5f5f5" stroke="#ccc"/>
+  <text x="28" y="507" font-family="Arial" font-size="11" fill="#333">Map strip - Share - Bailout - Advisory</text>
+  <text x="16" y="600" font-family="Arial" font-size="12" fill="#333">H3 Recover without drama</text>
+  <text x="16" y="620" font-family="Arial" font-size="11" fill="#666">Water - bailout - calm share</text>
+</svg>

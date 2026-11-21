@@ -1,0 +1,40 @@
+export const corridor = {
+  name: 'Sierra Crest Section',
+  trailhead: 'Sierra Crest trailhead',
+  totalMiles: '48.2 mi',
+  days: 4,
+  gain: '+9,400 ft',
+  preset: 'Backpacker',
+  toTrailhead: '48 min · 3.2 mi to trailhead',
+  day2: {
+    label: 'Day 2 of 4',
+    title: 'Day 2 plan',
+    summary: '11.4 mi · +2,800 ft · Backpacker',
+    steep: 'Grade > 15% for 1.8 mi · start early',
+    elevation: 'Day 2 · +2,800 / -1,100 ft',
+    hikeTime: '2 hr 40 min',
+    hikeMeta: '6.2 mi · Hiking · Stay on main',
+  },
+  daysList: [
+    'Day 1 · 12.1 mi · +2,100 ft',
+    'Day 2 · 11.4 mi · +2,800 ft',
+    'Day 3 · 13.0 mi · bailout',
+    'Day 4 · 11.7 mi · town',
+  ],
+  water: {
+    name: 'Granite Spring',
+    detail: '1.8 mi ahead · +420 ft',
+    safety: 'Granite Spring · 1.8 mi · +420 ft',
+  },
+  bailout: {
+    name: 'Forest Rd 22',
+    distance: '1.2 mi',
+    safety: 'Forest Rd 22 · 1.2 mi offline',
+  },
+  camp: 'Camp · pine flat',
+  pack: {
+    size: '86 MB · trails · elevation · waypoints',
+    note: 'Day plan works with no signal',
+  },
+  advisory: 'Wind advisory',
+}

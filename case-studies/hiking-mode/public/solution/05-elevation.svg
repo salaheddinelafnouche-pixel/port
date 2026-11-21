@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="640" viewBox="0 0 320 640">
+  <defs>
+    <filter id="s5" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#202124" flood-opacity="0.14"/>
+    </filter>
+  </defs>
+  <rect width="320" height="640" fill="#f8f9fa"/>
+  <rect width="320" height="28" fill="#fff"/>
+  <text x="16" y="18" font-family="Roboto, Arial, sans-serif" font-size="11" font-weight="600" fill="#202124">9:41</text>
+  <circle cx="278" cy="14" r="3" fill="#34a853"/>
+  <text x="286" y="18" font-family="Roboto, Arial, sans-serif" font-size="10" fill="#5f6368">LTE</text>
+  <rect y="28" width="320" height="237" fill="#e8eee6"/>
+  <path d="M-20 225 Q70 175 160 210 T340 165" fill="none" stroke="#cfd5d8" stroke-width="12"/>
+  <path d="M20 80 L80 150 L55 230 L120 205" fill="none" stroke="#d7dce0" stroke-width="7"/>
+  <path d="M40 235 Q100 185 145 145 T225 95" fill="none" stroke="#34a853" stroke-width="5"/>
+  <circle cx="145" cy="160" r="8" fill="#fff" stroke="#34a853" stroke-width="2.5"/>
+  <text x="158" y="148" font-family="Roboto, Arial, sans-serif" font-size="10" font-weight="600" fill="#137333">junction</text>
+  <circle cx="105" cy="195" r="7" fill="#1a73e8" stroke="#fff" stroke-width="2"/>
+  <rect x="12" y="40" width="196" height="40" rx="20" fill="#fff"/>
+  <path d="M28 52 L38 62 L28 72" fill="none" stroke="#5f6368" stroke-width="2"/>
+  <text x="48" y="65" font-family="Roboto, Arial, sans-serif" font-size="12" fill="#202124">Elevation</text>
+  <rect x="218" y="47" width="90" height="26" rx="13" fill="#e6f4ea"/>
+  <circle cx="231" cy="60" r="4.5" fill="#34a853"/>
+  <text x="242" y="64" font-family="Roboto, Arial, sans-serif" font-size="11" font-weight="700" fill="#137333">Hiking</text>
+  <circle cx="288" cy="150" r="20" fill="#fff"/>
+  <path d="M288 142 L288 158 M280 150 L296 150" stroke="#5f6368" stroke-width="2"/>
+  <circle cx="288" cy="202" r="20" fill="#fff"/>
+  <circle cx="288" cy="202" r="6" fill="#1a73e8" stroke="#fff" stroke-width="2"/>
+  <circle cx="288" cy="202" r="12" fill="#1a73e8" opacity="0.18"/>
+  <rect y="250" width="320" height="390" rx="20" fill="#fff" filter="url(#s5)"/>
+  <rect x="136" y="262" width="48" height="4" rx="2" fill="#dadce0"/>
+  <text x="20" y="296" font-family="Roboto, Arial, sans-serif" font-size="11" fill="#1a73e8">Google Maps &#183; Hiking</text>
+  <text x="20" y="322" font-family="Roboto, Arial, sans-serif" font-size="18" font-weight="700" fill="#202124">Elevation and grade</text>
+  <text x="20" y="344" font-family="Roboto, Arial, sans-serif" font-size="13" fill="#5f6368">Day 2 &#183; +2,800 / -1,100 ft</text>
+  <rect x="100" y="362" width="52" height="100" rx="4" fill="#f9ab00" opacity="0.22"/>
+  <polyline points="28,490 70,460 110,400 150,362 190,430 230,400 270,418 292,408" fill="none" stroke="#34a853" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="28" y1="500" x2="292" y2="500" stroke="#e8eaed"/>
+  <text x="108" y="518" font-family="Roboto, Arial, sans-serif" font-size="11" font-weight="600" fill="#e37400">steep zone</text>
+  <rect x="20" y="536" width="280" height="60" rx="12" fill="#e6f4ea"/>
+  <text x="34" y="560" font-family="Roboto, Arial, sans-serif" font-size="13" font-weight="700" fill="#137333">At fork &#183; stay on main grade</text>
+  <text x="34" y="578" font-family="Roboto, Arial, sans-serif" font-size="11" fill="#188038">Recommended line matches Maps trail</text>
+</svg>

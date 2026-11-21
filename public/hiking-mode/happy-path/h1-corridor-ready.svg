@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="640" viewBox="0 0 320 640">
+  <rect width="320" height="640" fill="#fff"/>
+  <text x="20" y="48" font-family="Arial" font-size="18" font-weight="bold" fill="#222">Offline pack</text>
+  <text x="20" y="72" font-family="Arial" font-size="12" fill="#666">Corridor ready before you leave</text>
+  <rect x="20" y="96" width="280" height="168" rx="12" fill="#e8f5e9" stroke="#2e7d32"/>
+  <text x="36" y="128" font-family="Arial" font-size="14" font-weight="bold" fill="#1b5e20">Sierra Crest Section</text>
+  <text x="36" y="152" font-family="Arial" font-size="12" fill="#33691e">86 MB - trails - elevation - waypoints</text>
+  <circle cx="48" cy="188" r="8" fill="#2e7d32"/>
+  <path d="M44 188 L47 191 L54 184" fill="none" stroke="#fff" stroke-width="2"/>
+  <text x="64" y="193" font-family="Arial" font-size="13" font-weight="bold" fill="#1b5e20">Corridor ready</text>
+  <text x="36" y="228" font-family="Arial" font-size="11" fill="#558b2f">Day plan works with no signal</text>
+  <text x="20" y="300" font-family="Arial" font-size="13" font-weight="bold" fill="#333">Packed offline</text>
+  <rect x="20" y="316" width="280" height="44" rx="8" fill="#f5f5f5"/>
+  <text x="32" y="343" font-family="Arial" font-size="12" fill="#333">Elevation profile - steep flags</text>
+  <rect x="20" y="370" width="280" height="44" rx="8" fill="#f5f5f5"/>
+  <text x="32" y="397" font-family="Arial" font-size="12" fill="#333">Water - camp - exits</text>
+  <rect x="20" y="424" width="280" height="44" rx="8" fill="#f5f5f5"/>
+  <text x="32" y="451" font-family="Arial" font-size="12" fill="#333">Bailouts to road / trailhead</text>
+  <text x="16" y="600" font-family="Arial" font-size="12" fill="#333">H1 Corridor ready</text>
+  <text x="16" y="620" font-family="Arial" font-size="11" fill="#666">Offline pack - day plan available</text>
+</svg>

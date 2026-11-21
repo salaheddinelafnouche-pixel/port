@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="520" viewBox="0 0 400 520">
+  <rect width="400" height="520" fill="#f4efe4"/>
+  <g opacity="0.12" stroke="#8a7f6e" stroke-width="1">
+    <path d="M28 70 H372 M28 94 H372 M28 118 H372 M28 142 H372 M28 166 H372 M28 190 H372 M28 214 H372 M28 238 H372 M28 262 H372 M28 286 H372 M28 310 H372 M28 334 H372 M28 358 H372 M28 382 H372 M28 406 H372 M28 430 H372 M28 454 H372"/>
+  </g>
+  <text x="28" y="36" font-family="'Segoe Print','Bradley Hand','Comic Sans MS',cursive" font-size="15" fill="#3a342c">WF06  elev + junction trust  (H2)</text>
+
+  <!-- map peek with junction X -->
+  <path d="M50 58 q-3 2 -2 12 v90 q1 12 14 12 h270 q12 -1 13 -13 V70 q-1 -10 -14 -12z" fill="#e5e0d0" stroke="#2f2a24" stroke-width="1.6"/>
+  <path d="M80 130 q50 -25 90 -45 t80 -25" fill="none" stroke="#2f5a3a" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M170 100 l8 8 m0 -8 l-8 8" stroke="#2f2a24" stroke-width="2" stroke-linecap="round"/>
+  <text x="182" y="98" font-family="'Segoe Print','Bradley Hand','Comic Sans MS',cursive" font-size="11" fill="#2f2a24">fork</text>
+
+  <!-- sheet -->
+  <path d="M40 175 q-3 2 -2 12 v280 q2 16 18 17 h280 q16 0 17 -17 V186 q0 -12 -15 -13z" fill="#faf6ec" stroke="#2f2a24" stroke-width="2"/>
+  <text x="60" y="215" font-family="'Segoe Print','Bradley Hand','Comic Sans MS',cursive" font-size="17" fill="#2f2a24">elevation &amp; grade</text>
+  <text x="60" y="238" font-family="'Segoe Print','Bradley Hand','Comic Sans MS',cursive" font-size="12" fill="#5c554a">day 2 · big up / little down</text>
+
+  <!-- hand-drawn elevation line -->
+  <path d="M70 400 L100 370 L130 330 L160 290 L190 310 L220 270 L250 285 L280 260 L310 275" fill="none" stroke="#2f5a3a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M70 410 H310" fill="none" stroke="#2f2a24" stroke-width="1.2" opacity="0.4"/>
+  <!-- steep hatch -->
+  <path d="M145 280 v130" fill="none" stroke="#a65c2a" stroke-width="28" opacity="0.2"/>
+  <text x="150" y="430" font-family="'Segoe Print','Bradley Hand','Comic Sans MS',cursive" font-size="12" fill="#a65c2a">steep</text>
+
+  <!-- junction callout -->
+  <path d="M60 450 l270 2 3 40 -272 1z" fill="#e4efe6" stroke="#2f5a3a" stroke-width="1.7"/>
+  <text x="74" y="476" font-family="'Segoe Print','Bradley Hand','Comic Sans MS',cursive" font-size="13" fill="#2f5a3a">at fork ? stay on main grade</text>
+
+  <text x="300" y="300" font-family="'Segoe Print','Bradley Hand','Comic Sans MS',cursive" font-size="12" fill="#8b4513" transform="rotate(8 300 300)">trust
+here</text>
+  <text x="28" y="510" font-family="'Segoe Print','Bradley Hand','Comic Sans MS',cursive" font-size="12" fill="#6b6358">H2 · grade + recommended line</text>
+</svg>
