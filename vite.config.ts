@@ -135,6 +135,10 @@ function agentReadyPlugin(): Plugin {
 export default defineConfig({
   plugins: [react(), agentReadyPlugin()],
   appType: 'mpa',
+  build: {
+    // Required for esbuild 0.28+ with Vite 6 (no destructuring downlevel).
+    target: 'es2022',
+  },
   server: {
     port: 3000,
     proxy: {
