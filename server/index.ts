@@ -1,27 +1,27 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import nodemailer from 'nodemailer';
 import { PROJECTS } from '../src/data/projects.ts';
+import {
+  ALLOWED_ORIGINS,
+  buildContactEmailHtml,
+  createMailTransporter,
+  isRateLimited,
+  oneLine,
+  parseContactBody,
+} from '../lib/contact.ts';
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5050;
 const MAX_STORED_SUBMISSIONS = 100;
-const RATE_WINDOW_MS = 15 * 60 * 1000;
-const RATE_MAX = 5;
 
-const allowedOrigins = new Set([
-  'https://salaheddinelafnouche.com',
-  'https://www.salaheddinelafnouche.com',
-  'http://localhost:3000',
-  'http://127.0.0.1:3000',
-]);
+app.set('trust proxy', 1);
 
 app.use(cors({
   origin(origin, callback) {
-    if (!origin || allowedOrigins.has(origin)) {
+    if (!origin || ALLOWED_ORIGINS.has(origin)) {
       callback(null, true);
       return;
     }
@@ -30,47 +30,8 @@ app.use(cors({
 }));
 app.use(express.json({ limit: '20kb' }));
 
-// Target email address where inquiries will be delivered
 const TARGET_EMAIL = process.env.TARGET_EMAIL || 'portfolio@salaheddinelafnouche.com';
 
-// Transporter configuration for sending emails
-const createTransporter = () => {
-  // Hostinger Mail SMTP configuration
-  const smtpHost = process.env.SMTP_HOST || (process.env.HOSTINGER_EMAIL_PASS ? 'smtp.hostinger.com' : undefined);
-  const smtpPort = Number(process.env.SMTP_PORT || 465);
-  const smtpUser = process.env.SMTP_USER || process.env.HOSTINGER_USER || 'portfolio@salaheddinelafnouche.com';
-  const smtpPass = process.env.SMTP_PASS || process.env.HOSTINGER_EMAIL_PASS;
-
-  if (smtpHost && smtpPass) {
-    return nodemailer.createTransport({
-      host: smtpHost,
-      port: smtpPort,
-      secure: smtpPort === 465,
-      auth: {
-        user: smtpUser,
-        pass: smtpPass,
-      },
-    });
-  }
-
-  // Gmail SMTP fallback configuration
-  const gmailUser = process.env.GMAIL_USER || process.env.EMAIL_USER;
-  const gmailPass = process.env.GMAIL_PASS || process.env.EMAIL_PASS;
-
-  if (gmailUser && gmailPass) {
-    return nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: gmailUser,
-        pass: gmailPass,
-      },
-    });
-  }
-
-  return null;
-};
-
-// In-memory store for contact submissions
 interface ContactSubmission {
   id: string;
   name: string;
@@ -81,48 +42,9 @@ interface ContactSubmission {
 }
 
 const contactSubmissions: ContactSubmission[] = [];
-const contactHits = new Map<string, number[]>();
-
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-function escapeHtml(value: string): string {
-  return value
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
-
-function oneLine(value: string): string {
-  return value.replace(/[\r\n]+/g, ' ').replace(/"/g, '').trim();
-}
 
 function clientIp(req: Request): string {
   return req.ip || req.socket.remoteAddress || 'unknown';
-}
-
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const recent = (contactHits.get(ip) || []).filter((timestamp) => now - timestamp < RATE_WINDOW_MS);
-  if (recent.length >= RATE_MAX) {
-    contactHits.set(ip, recent);
-    return true;
-  }
-  recent.push(now);
-  contactHits.set(ip, recent);
-  if (contactHits.size > 1000) {
-    const oldest = contactHits.keys().next().value;
-    if (oldest) contactHits.delete(oldest);
-  }
-  return false;
-}
-
-function trimmedField(value: unknown, maxLength: number): string | null {
-  if (typeof value !== 'string') return null;
-  const trimmed = value.trim();
-  if (!trimmed || trimmed.length > maxLength) return null;
-  return trimmed;
 }
 
 // API Routes
@@ -142,38 +64,18 @@ app.post('/api/contact', async (req: Request, res: Response) => {
     });
   }
 
-  const name = trimmedField(req.body?.name, 120);
-  const email = trimmedField(req.body?.email, 254);
-  const message = trimmedField(req.body?.message, 5000);
-  const scope = req.body?.scope;
-
-  if (!name || !email || !message || !EMAIL_PATTERN.test(email)) {
-    return res.status(400).json({
-      success: false,
-      error: 'Please provide a name, a valid email, and a message.',
-    });
+  const parsed = parseContactBody(req.body);
+  if (!parsed.ok) {
+    return res.status(400).json({ success: false, error: parsed.error });
   }
 
-  let scopeList: string[] = [];
-  if (scope !== undefined) {
-    const invalidScope = !Array.isArray(scope)
-      || scope.length > 8
-      || scope.some((item) => typeof item !== 'string' || item.trim().length > 80);
-    if (invalidScope) {
-      return res.status(400).json({
-        success: false,
-        error: 'Project scope must be a short list of modules.',
-      });
-    }
-    scopeList = scope.map((item: string) => item.trim()).filter(Boolean);
-  }
-
+  const { fields } = parsed;
   const newSubmission: ContactSubmission = {
     id: 'msg_' + Date.now(),
-    name,
-    email,
-    message,
-    scope: scopeList,
+    name: fields.name,
+    email: fields.email,
+    message: fields.message,
+    scope: fields.scopeList,
     createdAt: new Date().toISOString(),
   };
 
@@ -183,8 +85,8 @@ app.post('/api/contact', async (req: Request, res: Response) => {
   }
   console.log(`Contact submission stored (${newSubmission.id})`);
 
-  const transporter = createTransporter();
-  if (!transporter) {
+  const mail = createMailTransporter();
+  if (!mail) {
     console.warn('Email transporter is not configured.');
     return res.status(503).json({
       success: false,
@@ -192,50 +94,20 @@ app.post('/api/contact', async (req: Request, res: Response) => {
     });
   }
 
-  const safeName = oneLine(name);
-  const safeEmail = oneLine(email);
-  const scopeLabel = scopeList.length > 0 ? scopeList.join(', ') : 'None selected';
-  const senderUser = process.env.SMTP_USER || process.env.HOSTINGER_USER || process.env.GMAIL_USER || process.env.EMAIL_USER || 'portfolio@salaheddinelafnouche.com';
-
   try {
-    await transporter.sendMail({
-      from: `"${safeName} (via Portfolio)" <${senderUser}>`,
-      replyTo: safeEmail,
+    await mail.transporter.sendMail({
+      from: `"${oneLine(fields.name)} (via Portfolio)" <${mail.senderUser}>`,
+      replyTo: oneLine(fields.email),
       to: TARGET_EMAIL,
-      subject: `Portfolio inquiry from ${safeName}`,
-      html: `
-        <div style="font-family: system-ui, -apple-system, sans-serif; max-width: 600px; padding: 24px; border: 1px solid #e5e7eb; border-radius: 12px; background-color: #ffffff; color: #1f2937;">
-          <h2 style="color: #111827; margin-top: 0; font-size: 20px; font-weight: 700;">New Contact Form Submission</h2>
-          <p style="color: #6b7280; font-size: 14px; margin-top: -8px;">Sent via your portfolio website ("Let's Connect" form)</p>
-          <hr style="border: 0; border-top: 1px solid #e5e7eb; margin: 20px 0;" />
-          <div style="margin-bottom: 12px;">
-            <span style="color: #6b7280; font-size: 13px; font-weight: 600; text-transform: uppercase;">From:</span><br/>
-            <strong style="font-size: 16px; color: #111827;">${escapeHtml(name)}</strong>
-          </div>
-          <div style="margin-bottom: 12px;">
-            <span style="color: #6b7280; font-size: 13px; font-weight: 600; text-transform: uppercase;">Email:</span><br/>
-            <a href="mailto:${escapeHtml(safeEmail)}" style="color: #3b82f6; text-decoration: none; font-size: 15px;">${escapeHtml(email)}</a>
-          </div>
-          <div style="margin-bottom: 16px;">
-            <span style="color: #6b7280; font-size: 13px; font-weight: 600; text-transform: uppercase;">Project Scope / Modules:</span><br/>
-            <span style="display: inline-block; background-color: #f3f4f6; color: #374151; padding: 4px 10px; border-radius: 6px; font-size: 14px; margin-top: 4px;">${escapeHtml(scopeLabel)}</span>
-          </div>
-          <div style="margin-top: 20px; padding: 16px; background-color: #f9fafb; border-left: 4px solid #6366f1; border-radius: 6px;">
-            <span style="color: #6b7280; font-size: 13px; font-weight: 600; text-transform: uppercase;">Message:</span>
-            <p style="white-space: pre-wrap; margin-top: 8px; margin-bottom: 0; color: #1f2937; font-size: 15px; line-height: 1.6;">${escapeHtml(message)}</p>
-          </div>
-          <div style="margin-top: 24px; border-top: 1px dashed #e5e7eb; font-size: 12px; color: #9ca3af;">
-            Submitted at: ${escapeHtml(new Date(newSubmission.createdAt).toLocaleString())}
-          </div>
-        </div>
-      `,
+      subject: `Portfolio inquiry from ${oneLine(fields.name)}`,
+      html: buildContactEmailHtml(fields, new Date(newSubmission.createdAt).toLocaleString()),
     });
     console.log(`Contact email sent to ${TARGET_EMAIL}`);
     return res.json({
       success: true,
       message: "Thanks! I'll be in touch within 24 hours.",
     });
-  } catch (mailErr) {
+  } catch {
     console.error('Failed to send contact email');
     return res.status(502).json({
       success: false,

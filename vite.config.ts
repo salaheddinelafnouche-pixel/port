@@ -135,8 +135,16 @@ function agentReadyPlugin(): Plugin {
 export default defineConfig({
   plugins: [react(), agentReadyPlugin()],
   appType: 'mpa',
+  // esbuild 0.28+ cannot downlevel destructuring; keep dep optimizer + transforms on es2022.
+  esbuild: {
+    target: 'es2022',
+  },
+  optimizeDeps: {
+    esbuildOptions: {
+      target: 'es2022',
+    },
+  },
   build: {
-    // Required for esbuild 0.28+ with Vite 6 (no destructuring downlevel).
     target: 'es2022',
   },
   server: {
