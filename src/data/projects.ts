@@ -41,7 +41,7 @@ export const PROJECTS: Project[] = [
     tags: ['Concept Case Study', 'Mixed Methods', 'React Prototype'],
     category: 'Maps & Outdoor UX',
     link: '/hiking-mode',
-    thumb: '/assets/hiking-mode-thumb.jpg',
+    thumb: '/assets/hiking-mode-thumb.png',
     initials: 'HM',
     keyResults: [
       '79% of backpacker-primary respondents used Maps plus a specialty trail app on the same trip (Hypothesis).',
@@ -67,7 +67,7 @@ export const PROJECTS: Project[] = [
     tags: ['Usability Testing', 'Interaction Design', 'SUS ≥ 80'],
     category: 'AI & Emotion SaaS',
     link: '/youscent-saas',
-    thumb: '/assets/youscent-saas-thumb.jpg',
+    thumb: '/assets/youscent-saas-thumb.png',
     initials: 'YS',
     keyResults: [
       'Shipped a deterministic compose flow: memory, up to three archetype colors, then season, occasion, and strength.',
@@ -93,7 +93,7 @@ export const PROJECTS: Project[] = [
     tags: ['User Interviews', 'Figma Prototype', 'SUS 81.4'],
     category: 'AI & Emotion UX',
     link: '/youscent',
-    thumb: '/assets/youscent-thumb.jpg',
+    thumb: '/assets/youscent-thumb.png',
     initials: 'YS',
     keyResults: [
       '73% conversion rate from initial browse to creating a custom AI fragrance formula in testing.',
@@ -119,7 +119,7 @@ export const PROJECTS: Project[] = [
     tags: ['User Research', 'Design Systems', 'WCAG 2.1 AA'],
     category: 'EdTech & Inclusive UX',
     link: '/tech4u',
-    thumb: '/assets/tech4u-thumb.jpg',
+    thumb: '/assets/tech4u-thumb.png',
     initials: 'T4',
     keyResults: [
       '40% projected increase in 90-day learner retention.',
