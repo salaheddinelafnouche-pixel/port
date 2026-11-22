@@ -2,10 +2,133 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ContactSection } from '../components/ContactSection';
 import { Reveal, RevealStagger } from '../components/Reveal';
+import { PROJECTS } from '../data/projects';
+
+const SECTION_LINKS = [
+  {
+    id: 'narrative',
+    label: 'Overview',
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <circle cx="12" cy="8" r="5" />
+        <path d="M20 21a8 8 0 0 0-16 0" />
+      </svg>
+    ),
+  },
+  {
+    id: 'approach',
+    label: 'Engine',
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="3" />
+        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+      </svg>
+    ),
+  },
+  {
+    id: 'resume',
+    label: 'Background',
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <rect x="2" y="7" width="20" height="14" rx="2" />
+        <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
+      </svg>
+    ),
+  },
+  {
+    id: 'about-contact',
+    label: 'Contact',
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+        <polyline points="22,6 12,13 2,6" />
+      </svg>
+    ),
+  },
+] as const;
+
+const CAREER_HIGHLIGHTS: Array<{
+  projectId: string;
+  title: string;
+  body: React.ReactNode;
+}> = [
+  {
+    projectId: 'hiking-mode',
+    title: 'Lead UX Designer @ Google Maps Hiking Mode',
+    body: 'Backpacker-led Hiking mode—corridor, day plan, offline pack—from research (n≈124 survey, n=8 interviews).',
+  },
+  {
+    projectId: 'youscent-saas',
+    title: 'Lead SaaS Designer @ YouScent',
+    body: 'Digital perfume atelier: memory + archetype colors become a formula with a verification hash.',
+  },
+  {
+    projectId: 'tech4u',
+    title: 'Founder & Lead UX @ Tech4U',
+    body: (
+      <>
+        Adaptive &ldquo;Soft Program&rdquo; for an equity-focused e-learning platform—{' '}
+        <strong>40% retention increase</strong>.
+      </>
+    ),
+  },
+];
+
+const SKILL_GROUPS = [
+  {
+    title: 'Design & Systems',
+    items: [
+      'Figma Variables & Tokens',
+      'Design System Governance',
+      'Interactive Prototyping',
+      'Component Libraries',
+    ],
+  },
+  {
+    title: 'UX Research & AI',
+    items: [
+      '1-on-1 User Interviews',
+      'Generative AI Prompt UX',
+      'Affinity & Empathy Mapping',
+      'SUS Usability Surveys',
+    ],
+  },
+  {
+    title: 'Accessibility & Frontend',
+    items: [
+      'WCAG 2.1 AA Audits',
+      'Screen Reader Specs',
+      'React & TypeScript',
+      'Vanilla CSS & HTML5',
+    ],
+  },
+];
+
+const CERTS = [
+  {
+    issuer: 'IBM',
+    year: '2026',
+    title: 'Introduction to Artificial Intelligence (AI)',
+    href: 'https://coursera.org/share/c78fd5d739d3dd819d5b34649ce879e2',
+  },
+  {
+    issuer: 'Google',
+    year: '2025',
+    title: 'Google UX Design Professional Certificate',
+    href: 'https://www.credly.com/badges/aee2e68f-151f-4859-891a-6eafb2865cf8/public_url',
+  },
+  {
+    issuer: 'BITS Pilani',
+    year: '2026',
+    title: 'Human-Computer Interaction (HCI)',
+    href: 'https://www.coursera.org/account/accomplishments/verify/AT79DM7RUO7V',
+  },
+];
 
 export const AboutPage: React.FC = () => {
-  // Typewriter effect state
   const [roleText, setRoleText] = useState('');
+  const [activeEnginePhase, setActiveEnginePhase] = useState(0);
+  const [activeSection, setActiveSection] = useState<string>('narrative');
 
   useEffect(() => {
     const roles = [
@@ -49,104 +172,133 @@ export const AboutPage: React.FC = () => {
     return () => clearTimeout(timeoutId);
   }, []);
 
-  // Framework State: Interactive Product Execution Engine
-  const [activeEnginePhase, setActiveEnginePhase] = useState(0);
+  useEffect(() => {
+    const sectionIds = SECTION_LINKS.map((s) => s.id);
+    const elements = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => Boolean(el));
+
+    if (elements.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+        if (visible[0]?.target.id) {
+          setActiveSection(visible[0].target.id);
+        }
+      },
+      {
+        rootMargin: '-30% 0px -55% 0px',
+        threshold: [0.1, 0.25, 0.5],
+      }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  const handleSectionJump = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    el.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+    setActiveSection(id);
+    window.history.replaceState(null, '', `#${id}`);
+  };
 
   const enginePhases = [
     {
       id: '01',
-      badge: 'Phase 01 · Product Strategy',
-      shortTitle: '01 · Strategy',
-      title: 'Business-to-User Translation',
-      subtitle: 'Mapping executive KPIs to human friction before drafting a single UI wireframe.',
+      title: 'Strategy',
+      subtitle: 'Map KPIs to human friction before drafting UI.',
       icon: (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <circle cx="12" cy="12" r="10" />
           <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
         </svg>
       ),
-      overview: 'Every successful product begins with radical clarity. I align cross-functional stakeholder expectations, conduct deep qualitative interviews, and define North Star KPIs to ensure design decisions directly move business metrics.',
       steps: [
-        'Stakeholder alignment & North Star KPI definition',
-        'Qualitative 1-on-1 user interviews & empathy mapping',
-        'Competitive audits & market positioning matrix',
-        'Problem framing & zero-waste feature scoping'
+        'Stakeholder alignment & North Star KPIs',
+        'User interviews & empathy mapping',
+        'Competitive audits & positioning',
+        'Problem framing & feature scoping'
       ],
-      deliverables: ['Product Roadmap', 'Empathy Maps', 'North Star KPIs', 'Friction Audit Report'],
-      tools: ['Miro', 'Figma', 'Notion', 'User Interviews'],
-      metric: '18 qualitative user interviews conducted for YouScent & Tech4U'
+      metric: '18 qualitative interviews for YouScent & Tech4U'
     },
     {
       id: '02',
-      badge: 'Phase 02 · Experience Architecture',
-      shortTitle: '02 · Architecture',
-      title: 'Systems & Interaction Design',
-      subtitle: 'Structuring intuitive information architecture and accessible design token systems.',
+      title: 'Architecture',
+      subtitle: 'Structure IA and accessible design token systems.',
       icon: (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
           <line x1="3" y1="9" x2="21" y2="9" />
           <line x1="9" y1="21" x2="9" y2="9" />
         </svg>
       ),
-      overview: 'Transforming requirements into structured user journeys, WCAG 2.1 AA token variable systems in Figma, and interactive rapid prototypes designed for friction-free navigation.',
       steps: [
-        'Information Architecture (IA) & task flow mapping',
-        'WCAG 2.1 AA token variable systems in Figma',
-        'Low-fidelity to interactive hi-fi prototyping loops',
-        'Design system governance & token documentation'
+        'IA & task flow mapping',
+        'WCAG 2.1 AA tokens in Figma',
+        'Lo-fi to interactive hi-fi loops',
+        'Design system & token docs'
       ],
-      deliverables: ['Design Tokens', 'Interactive Hi-Fi Prototypes', 'IA & Flow Diagrams', 'UI Token Spec Sheet'],
-      tools: ['Figma Variables', 'ProtoPie', 'Design Tokens', 'Bento Grid System'],
-      metric: '81.4 System Usability Scale (SUS) benchmark achieved'
+      metric: '81.4 System Usability Scale (SUS) achieved'
     },
     {
       id: '03',
-      badge: 'Phase 03 · Empirical Validation',
-      shortTitle: '03 · Validation',
-      title: 'User Testing & Accessibility Auditing',
-      subtitle: 'Validating prototypes with real users to refine task success and contrast compliance.',
+      title: 'Validation',
+      subtitle: 'Test with real users; prove task success and a11y.',
       icon: (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
           <path d="m9 12 2 2 4-4" />
         </svg>
       ),
-      overview: 'Assumptions are tested early and often. I run structured usability sessions with real users, record task success rates, and conduct screen reader audits to guarantee 100% WCAG compliance.',
       steps: [
-        'Unmoderated & moderated usability testing loops',
-        'Friction heatmaps & task-completion diagnostics',
-        'Screen reader ARIA specs & 4.5:1 contrast auditing',
-        'Iterative design refinement based on empirical proof'
+        'Usability testing loops',
+        'Friction & task-completion diagnostics',
+        'Screen reader & contrast audits',
+        'Iterate from empirical proof'
       ],
-      deliverables: ['Usability Audit Reports', 'A11y Package (WCAG 2.1 AA)', 'Friction Heatmaps', 'SUS Scorecards'],
-      tools: ['NVDA / VoiceOver', 'UsabilityTesting', 'Stark A11y', 'Figma Prototyping'],
-      metric: '100% WCAG 2.1 AA accessibility compliance package delivered'
+      metric: '100% WCAG 2.1 AA compliance package delivered'
     },
     {
       id: '04',
-      badge: 'Phase 04 · Engineering Hand-Off',
-      shortTitle: '04 · Hand-Off',
-      title: 'Zero-Loss Code Sync & Delivery',
-      subtitle: 'Bridging Figma token specs with production React & CSS code for flawless execution.',
+      title: 'Hand-Off',
+      subtitle: 'Bridge Figma tokens to production React & CSS.',
       icon: (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <polyline points="16 18 22 12 16 6" />
           <polyline points="8 6 2 12 8 18" />
         </svg>
       ),
-      overview: 'As a designer with a military instruction background in programming logic, I communicate seamlessly with developers. I provide Figma Code Connect specs, token variables, and responsive layout guidelines.',
       steps: [
-        'Figma Code Connect component documentation',
-        'Design token variable export (CSS variables / JSON)',
-        'Edge-case & state mapping (empty, error, loading)',
-        'Engineering sync & post-launch QA auditing'
+        'Code Connect component docs',
+        'Token export (CSS / JSON)',
+        'Edge-case & state mapping',
+        'Eng sync & post-launch QA'
       ],
-      deliverables: ['Code Connect Specs', 'Design Token Variables', 'State Matrix', 'Developer Hand-off Guide'],
-      tools: ['Figma Code Connect', 'React / TypeScript', 'CSS Custom Props', 'Git'],
-      metric: '73% First-Time Generation Conversion on YouScent AI'
+      metric: '73% first-time conversion on YouScent AI'
     }
   ];
+
+  const careerProjects = CAREER_HIGHLIGHTS.map((highlight) => {
+    const project = PROJECTS.find((p) => p.id === highlight.projectId);
+    if (!project) return null;
+    return {
+      ...highlight,
+      date: project.date,
+      link: project.link,
+      thumb: project.thumb,
+    };
+  }).filter((item): item is NonNullable<typeof item> => Boolean(item));
+
+  const activePhase = enginePhases[activeEnginePhase];
 
   return (
     <main id="main" className="about-redesign-page">
@@ -177,7 +329,7 @@ export const AboutPage: React.FC = () => {
               <span className="role-ribbon-bracket" aria-hidden="true">{'}'}</span>
             </div>
 
-            <p className="about-hero-bio-lead" style={{ maxWidth: '720px', margin: '1rem auto 1.5rem auto', fontSize: '1.05rem', lineHeight: '1.65', opacity: 0.9 }}>
+            <p className="about-hero-bio-lead">
               Google-certified Product Designer applying military precision to build accessible, and high-converting products.
             </p>
 
@@ -213,64 +365,67 @@ export const AboutPage: React.FC = () => {
                 3 Yrs Military Instructor
               </li>
             </ul>
+
+            <nav className="about-hero-jumps" aria-label="Jump to About sections">
+              {SECTION_LINKS.map((link) => (
+                <a
+                  key={link.id}
+                  href={`#${link.id}`}
+                  className="about-jump-pill"
+                  onClick={(e) => handleSectionJump(e, link.id)}
+                >
+                  {link.icon}
+                  {link.label}
+                </a>
+              ))}
+            </nav>
           </Reveal>
         </div>
       </section>
 
-      {/* 2. Personal Narrative & Principles Section — Concise & Scannable */}
+      {/* Sticky section jump nav */}
+      <nav className="about-section-nav" aria-label="About page sections">
+        <div className="about-section-nav-inner">
+          {SECTION_LINKS.map((link) => (
+            <a
+              key={link.id}
+              href={`#${link.id}`}
+              className={`about-section-nav-link${activeSection === link.id ? ' is-active' : ''}`}
+              onClick={(e) => handleSectionJump(e, link.id)}
+              aria-current={activeSection === link.id ? 'location' : undefined}
+            >
+              {link.icon}
+              <span>{link.label}</span>
+            </a>
+          ))}
+        </div>
+      </nav>
+
+      {/* 2. Personal Narrative & Principles Section */}
       <section className="narrative-section section" id="narrative" aria-labelledby="narrative-heading">
         <div className="section-watermark" aria-hidden="true">§ 01</div>
         <div className="container">
-          <div className="section-header" style={{ marginBottom: '1.5rem' }}>
+          <Reveal className="section-header who-iam-header">
             <p className="section-label">Who I Am</p>
             <h2 id="narrative-heading" className="section-title">Overview</h2>
-            <p className="section-desc" style={{ maxWidth: '680px' }}>
-              I combine structured systems thinking with deep human empathy to craft products that feel effortless and perform at scale.
+            <p className="section-desc">
+              Systems thinking with human empathy—products that feel effortless and perform at scale.
             </p>
-          </div>
-
-          {/* Quick Stats Bar */}
-          <Reveal className="who-iam-quick-bar glass-panel-sm">
-            <div className="quick-stat-item">
-              <span className="quick-stat-num">89%</span>
-              <span className="quick-stat-label">EdTech Dropout Solved</span>
-            </div>
-            <div className="quick-stat-divider" aria-hidden="true"></div>
-            <div className="quick-stat-item">
-              <span className="quick-stat-num">3 Yrs</span>
-              <span className="quick-stat-label">Military Instructor</span>
-            </div>
-            <div className="quick-stat-divider" aria-hidden="true"></div>
-            <div className="quick-stat-item">
-              <span className="quick-stat-num">73%</span>
-              <span className="quick-stat-label">AI User Conversion</span>
-            </div>
-            <div className="quick-stat-divider" aria-hidden="true"></div>
-            <div className="quick-stat-item">
-              <span className="quick-stat-num">79%</span>
-              <span className="quick-stat-label">Maps Dirt-Trust Gap</span>
-            </div>
-            <div className="quick-stat-divider" aria-hidden="true"></div>
-            <div className="quick-stat-item">
-              <span className="quick-stat-num">WCAG 2.1</span>
-              <span className="quick-stat-label">AA Standard</span>
-            </div>
           </Reveal>
 
-          {/* 3 Concise Cards */}
-          <RevealStagger className="who-iam-brief-grid" style={{ marginTop: '1.5rem' }}>
-            <div className="who-iam-brief-card glass-panel-sm" data-reveal>
-              <div className="brief-card-icon">
+          <RevealStagger className="who-iam-pillars">
+            <div className="who-iam-pillar" data-reveal>
+              <div className="who-iam-pillar-icon">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                 </svg>
               </div>
               <h3>Military Discipline</h3>
-              <p>Taught programming logic for 3 years in a military institution—fostering clarity, high standards, and structured communication under pressure.</p>
+              <p>Taught programming for 3 years in a military institution—clarity, high standards, structured communication under pressure.</p>
             </div>
 
-            <div className="who-iam-brief-card glass-panel-sm" data-reveal>
-              <div className="brief-card-icon">
+            <div className="who-iam-pillar" data-reveal>
+              <div className="who-iam-pillar-icon">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M9 18h6" />
                   <path d="M10 22h4" />
@@ -278,11 +433,11 @@ export const AboutPage: React.FC = () => {
                 </svg>
               </div>
               <h3>User-Centred UX</h3>
-              <p>Solved shift-worker learning barriers at Tech4U, creating an adaptive path ("Soft Program") that boosted retention by 40%.</p>
+              <p>At Tech4U, built an adaptive &ldquo;Soft Program&rdquo; for shift workers that boosted retention by 40%.</p>
             </div>
 
-            <div className="who-iam-brief-card glass-panel-sm" data-reveal>
-              <div className="brief-card-icon">
+            <div className="who-iam-pillar" data-reveal>
+              <div className="who-iam-pillar-icon">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <polygon points="12 2 2 7 12 12 22 7 12 2" />
                   <polyline points="2 17 12 22 22 17" />
@@ -290,341 +445,118 @@ export const AboutPage: React.FC = () => {
                 </svg>
               </div>
               <h3>End-to-End Craft</h3>
-              <p>From a synthesized research pack (Maps Hiking Mode) to Figma variable tokens, WCAG 2.1 AA audits, and live React prototypes.</p>
+              <p>Research packs to Figma tokens, WCAG 2.1 AA audits, and live React prototypes—end to end.</p>
             </div>
           </RevealStagger>
-          <Reveal className="who-iam-rules-bar glass-panel-sm" style={{ marginTop: '1.5rem' }}>
-            <span className="rules-title">Core Principles:</span>
-            <div className="rules-pills">
-              <span className="rule-pill">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '6px' }} aria-hidden="true">
+
+          <Reveal className="who-iam-principles">
+            <span className="who-iam-principles-label">Principles</span>
+            <ul className="who-iam-principles-list">
+              <li>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <circle cx="12" cy="12" r="10" />
                   <circle cx="12" cy="12" r="6" />
                   <circle cx="12" cy="12" r="2" />
                 </svg>
-                Clarity Over Cleverness
-              </span>
-              <span className="rule-pill">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '6px' }} aria-hidden="true">
+                Clarity over cleverness
+              </li>
+              <li>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
                 </svg>
-                Stress-Test the Happy Path
-              </span>
-              <span className="rule-pill">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '6px' }} aria-hidden="true">
+                Stress-test the happy path
+              </li>
+              <li>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <line x1="18" y1="20" x2="18" y2="10" />
                   <line x1="12" y1="20" x2="12" y2="4" />
                   <line x1="6" y1="20" x2="6" y2="14" />
                 </svg>
-                Evidence Over Opinion
-              </span>
-            </div>
-          </Reveal>
-
-          {/* Beyond the Screen Callout */}
-          <Reveal className="beyond-screen-callout glass-panel-sm" style={{ marginTop: '1.5rem', background: 'color-mix(in srgb, var(--surface) 20%, transparent)' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--accent)', fontWeight: 'bold' }}>
-                Beyond the Screen
-              </span>
-            </div>
-            <p style={{ margin: 0, fontSize: '0.95rem', lineHeight: '1.6', opacity: 0.9 }}>
-              I'm an avid reader who collects iconic book editions, drawn as much to their design and typography as to the ideas within, and a designer who continuously reverse-engineers everyday interfaces to make them remarkably more intuitive.
-            </p>
+                Evidence over opinion
+              </li>
+            </ul>
           </Reveal>
         </div>
       </section>
 
-      {/* 3. Problem-Solving Approach Section — Interactive 4-Phase Product Execution Engine */}
+      {/* 3. Problem-Solving Approach Section */}
       <section className="approach-section section" id="approach" aria-labelledby="approach-heading">
         <div className="section-watermark" aria-hidden="true">§ 02</div>
         <div className="container">
-          <Reveal className="section-header" style={{ textAlign: 'center', maxWidth: '720px', margin: '0 auto 2.5rem auto' }}>
-            <p className="section-label">My Design Engine</p>
-            <h2 id="approach-heading" className="section-title">The 0-to-1 Product Execution Engine</h2>
+          <Reveal className="section-header approach-section-header">
+            <p className="section-label">My Process Engine</p>
+            <h2 id="approach-heading" className="section-title">How I ship 0-to-1 products</h2>
             <p className="section-desc">
-              A structured 4-phase engineering methodology built to convert ambiguous brief requirements into intuitive, accessible, and high-impact digital products.
+              Four phases from ambiguous brief to accessible, high-impact digital products.
             </p>
           </Reveal>
 
-          <Reveal
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'minmax(260px, 1fr) minmax(320px, 2fr)',
-              gap: '1.75rem',
-              alignItems: 'stretch'
-            }}
-            className="engine-bento-wrapper"
-          >
-            {/* Left Stepper List */}
-            <div
-              className="glass-panel"
-              style={{
-                borderRadius: '24px',
-                padding: '1.5rem',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '12px',
-                border: '1px solid color-mix(in srgb, var(--border) 50%, transparent)'
-              }}
-            >
-              <span
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '0.75rem',
-                  fontWeight: 800,
-                  textTransform: 'uppercase',
-                  color: 'var(--accent)',
-                  letterSpacing: '0.08em',
-                  marginBottom: '4px'
-                }}
-              >
-                Engine Workflow Steps
-              </span>
+          <Reveal className="engine-bento-wrapper">
+            <div className="engine-stepper glass-panel">
+              <span className="engine-stepper-label">Phases</span>
 
               {enginePhases.map((phase, idx) => {
                 const isActive = activeEnginePhase === idx;
                 return (
-                  <div
+                  <button
                     key={phase.id}
+                    type="button"
+                    className={`engine-step${isActive ? ' is-active' : ''}`}
                     onClick={() => setActiveEnginePhase(idx)}
-                    role="button"
-                    tabIndex={0}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        setActiveEnginePhase(idx);
-                      }
-                    }}
-                    style={{
-                      padding: '1rem 1.25rem',
-                      borderRadius: '16px',
-                      cursor: 'pointer',
-                      transition: 'all 0.3s ease',
-                      background: isActive
-                        ? 'color-mix(in srgb, var(--accent) 15%, transparent)'
-                        : 'color-mix(in srgb, var(--surface) 40%, transparent)',
-                      border: isActive
-                        ? '1px solid color-mix(in srgb, var(--accent) 60%, transparent)'
-                        : '1px solid color-mix(in srgb, var(--border) 30%, transparent)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '12px'
-                    }}
+                    aria-pressed={isActive}
                   >
-                    <div
-                      style={{
-                        width: '32px',
-                        height: '32px',
-                        borderRadius: '10px',
-                        background: isActive ? 'var(--accent)' : 'color-mix(in srgb, var(--border) 30%, transparent)',
-                        color: isActive ? '#000000' : 'var(--text)',
-                        fontWeight: 800,
-                        fontFamily: 'var(--font-mono)',
-                        fontSize: '0.82rem',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        flexShrink: 0
-                      }}
-                    >
-                      {phase.id}
-                    </div>
-                    <div>
-                      <div
-                        style={{
-                          fontSize: '0.92rem',
-                          fontWeight: 700,
-                          color: 'var(--text)',
-                          lineHeight: '1.3'
-                        }}
-                      >
-                        {phase.title}
-                      </div>
-                      <div
-                        style={{
-                          fontSize: '0.78rem',
-                          opacity: 0.75,
-                          fontFamily: 'var(--font-mono)'
-                        }}
-                      >
-                        {phase.badge.split('·')[0].trim()}
-                      </div>
-                    </div>
-                  </div>
+                    <span className="engine-step-id">{phase.id}</span>
+                    <span className="engine-step-icon">{phase.icon}</span>
+                    <span className="engine-step-title">{phase.title}</span>
+                  </button>
                 );
               })}
             </div>
 
-            {/* Right Active Phase Console */}
-            <div
-              className="glass-panel"
-              style={{
-                borderRadius: '24px',
-                padding: '2.25rem 2rem',
-                border: '1.5px solid color-mix(in srgb, var(--accent) 45%, transparent)',
-                boxShadow: '0 20px 45px -10px rgba(0, 0, 0, 0.25), 0 0 30px color-mix(in srgb, var(--accent) 12%, transparent)',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between'
-              }}
-            >
-              <div>
-                {/* Header */}
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    flexWrap: 'wrap',
-                    gap: '1rem',
-                    marginBottom: '1.25rem',
-                    paddingBottom: '1rem',
-                  }}
-                >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-                    <div
-                      style={{
-                        width: '46px',
-                        height: '46px',
-                        borderRadius: '14px',
-                        background: 'color-mix(in srgb, var(--accent) 18%, transparent)',
-                        border: '1px solid color-mix(in srgb, var(--accent) 40%, transparent)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                      }}
-                    >
-                      {enginePhases[activeEnginePhase].icon}
-                    </div>
-                    <div>
-                      <span
-                        style={{
-                          fontFamily: 'var(--font-mono)',
-                          fontSize: '0.78rem',
-                          fontWeight: 800,
-                          color: 'var(--accent)',
-                          textTransform: 'uppercase',
-                          letterSpacing: '0.08em'
-                        }}
-                      >
-                        {enginePhases[activeEnginePhase].badge}
-                      </span>
-                      <h3
-                        style={{
-                          fontFamily: 'var(--font-serif)',
-                          fontSize: '1.5rem',
-                          fontWeight: 800,
-                          margin: '2px 0 0 0',
-                          color: 'var(--text)'
-                        }}
-                      >
-                        {enginePhases[activeEnginePhase].title}
-                      </h3>
-                    </div>
+            <div className="engine-console glass-panel">
+              <div className="engine-console-header">
+                <div className="engine-console-heading">
+                  <div className="engine-console-icon">{activePhase.icon}</div>
+                  <div>
+                    <span className="engine-console-badge">Phase {activePhase.id}</span>
+                    <h3 className="engine-console-title">{activePhase.title}</h3>
                   </div>
-                </div>
-
-                <p style={{ fontSize: '0.96rem', lineHeight: '1.65', opacity: 0.92, margin: '0 0 1.5rem 0' }}>
-                  {enginePhases[activeEnginePhase].overview}
-                </p>
-
-                {/* Steps Checklist */}
-                <div style={{ marginBottom: '1.5rem' }}>
-                  <h4
-                    style={{
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '0.8rem',
-                      textTransform: 'uppercase',
-                      color: 'var(--accent)',
-                      letterSpacing: '0.08em',
-                      marginBottom: '10px'
-                    }}
-                  >
-                    Core Phase Workflow:
-                  </h4>
-                  <ul
-                    style={{
-                      listStyle: 'none',
-                      padding: 0,
-                      margin: 0,
-                      display: 'grid',
-                      gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-                      gap: '10px'
-                    }}
-                  >
-                    {enginePhases[activeEnginePhase].steps.map((step, sIdx) => (
-                      <li
-                        key={sIdx}
-                        style={{
-                          fontSize: '0.88rem',
-                          lineHeight: '1.45',
-                          opacity: 0.95,
-                          display: 'flex',
-                          alignItems: 'flex-start',
-                          gap: '8px',
-                          background: 'color-mix(in srgb, var(--surface) 50%, transparent)',
-                          padding: '8px 12px',
-                          borderRadius: '10px',
-                          border: '1px solid color-mix(in srgb, var(--border) 25%, transparent)'
-                        }}
-                      >
-                        <svg
-                          width="14"
-                          height="14"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="var(--accent)"
-                          strokeWidth="3"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          aria-hidden="true"
-                          style={{ marginTop: '3px', flexShrink: 0 }}
-                        >
-                          <polyline points="20 6 9 17 4 12" />
-                        </svg>
-                        <span>{step}</span>
-                      </li>
-                    ))}
-                  </ul>
                 </div>
               </div>
 
-              {/* Deliverables & Proof Metric Footer */}
-              <div style={{ paddingTop: '1rem', borderTop: '1px dashed color-mix(in srgb, var(--border) 40%, transparent)' }}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px', marginBottom: '12px' }}>
-                  <div>
-                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', textTransform: 'uppercase', opacity: 0.7, marginRight: '8px' }}>Deliverables:</span>
-                    {enginePhases[activeEnginePhase].deliverables.map((del, dIdx) => (
-                      <span key={dIdx} className="interest-tag" style={{ fontSize: '0.75rem', padding: '3px 10px', marginRight: '4px', marginBottom: '4px', display: 'inline-block' }}>
-                        {del}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+              <p className="engine-console-subtitle">{activePhase.subtitle}</p>
 
-                <div
-                  style={{
-                    fontSize: '0.85rem',
-                    opacity: 0.95,
-                    background: 'color-mix(in srgb, var(--accent) 12%, transparent)',
-                    padding: '10px 14px',
-                    borderRadius: '12px',
-                    border: '1px dashed color-mix(in srgb, var(--accent) 35%, transparent)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '8px'
-                  }}
-                >
-                  <span style={{ fontSize: '1rem' }}>⚡</span>
-                  <div>
-                    <strong>Empirical Impact:</strong> {enginePhases[activeEnginePhase].metric}
-                  </div>
+              <ul className="engine-check-grid">
+                {activePhase.steps.map((step, sIdx) => (
+                  <li key={sIdx} className="engine-check-item">
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="var(--accent)"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    <span>{step}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="engine-metric">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                </svg>
+                <div>
+                  <strong>Impact:</strong> {activePhase.metric}
                 </div>
               </div>
             </div>
           </Reveal>
-
         </div>
       </section>
 
@@ -651,7 +583,7 @@ export const AboutPage: React.FC = () => {
           <div className="resume-header">
             <div className="section-header" style={{ marginBottom: 0 }}>
               <p className="section-label">Background</p>
-              <h2 id="resume-heading" className="section-title">Career Highlights &amp; Ecosystem</h2>
+              <h2 id="resume-heading" className="section-title">Selected work &amp; credentials</h2>
             </div>
             <div>
               <Link to="/resume" className="btn-secondary" aria-label="View full resume online">
@@ -664,196 +596,78 @@ export const AboutPage: React.FC = () => {
             </div>
           </div>
 
-          <RevealStagger className="about-bento-grid" style={{ marginTop: 'var(--space-xl)' }}>
-            <div className="about-bento-card bento-col-span-1" data-reveal>
-              <span className="career-date">Concept sprint · 2026</span>
-              <h3 className="bento-card-title">Lead UX Designer @ Google Maps Hiking Mode</h3>
-              <p className="bento-card-body">
-                Designed a backpacker-led native Maps Hiking mode — multi-day corridor, day plan, offline pack, bailouts — from a synthesized research pack (survey n≈124, interviews n=8).
-              </p>
-              <div className="interest-tags" style={{ marginTop: 'auto' }}>
-                <span className="interest-tag">Concept Case Study</span>
-                <span className="interest-tag">Mixed Methods</span>
-                <span className="interest-tag">React Prototype</span>
-              </div>
-            </div>
+          <RevealStagger className="about-bento-grid">
+            {careerProjects.map((project) => (
+              <Link
+                key={project.projectId}
+                to={project.link}
+                className="about-bento-card about-bento-card--linked"
+                data-reveal
+              >
+                <div className="about-bento-thumb">
+                  <img
+                    src={project.thumb}
+                    alt=""
+                    loading="lazy"
+                    width="640"
+                    height="400"
+                  />
+                </div>
+                <span className="career-date">{project.date}</span>
+                <h3 className="bento-card-title">{project.title}</h3>
+                <p className="bento-card-body">{project.body}</p>
+              </Link>
+            ))}
 
-            <div className="about-bento-card bento-col-span-1" data-reveal>
-              <span className="career-date">02/2026 – Present</span>
-              <h3 className="bento-card-title">Lead SaaS Designer @ YouScent</h3>
-              <p className="bento-card-body">
-                Designed the digital perfume atelier: a memory and up to three archetype colors become an exact formula with a verification hash, and a perfumer can claim the brief.
-              </p>
-              <div className="interest-tags" style={{ marginTop: 'auto' }}>
-                <span className="interest-tag">Verification Hash</span>
-                <span className="interest-tag">94% Task Completion</span>
-                <span className="interest-tag">Five Starter Credits</span>
+            <div className="about-bento-card about-bento-card--icon" data-reveal>
+              <div className="about-bento-icon-panel" aria-hidden="true">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="M12 8v4M12 16h.01" />
+                </svg>
               </div>
-            </div>
-
-            <div className="about-bento-card bento-col-span-1" data-reveal>
-              <span className="career-date">06/2025 – 10/2025</span>
-              <h3 className="bento-card-title">Founder &amp; Lead UX @ Tech4U</h3>
-              <p className="bento-card-body">
-                Owned research &amp; UI/UX for an equity-focused e-learning platform, prototyping an adaptive learning path ("Soft Program") that drove a <strong>40% retention increase</strong>.
-              </p>
-              <div className="interest-tags" style={{ marginTop: 'auto' }}>
-                <span className="interest-tag">WCAG 2.1 AA</span>
-                <span className="interest-tag">Design Systems</span>
-                <span className="interest-tag">EdTech</span>
-              </div>
-            </div>
-
-            <div className="about-bento-card bento-col-span-1" data-reveal>
               <span className="career-date">2021 – 2024</span>
               <h3 className="bento-card-title">Instructor @ C.I.T &bull; Kenitra</h3>
               <p className="bento-card-body">
-                Spent 3 years teaching complex technical systems and fostering structured communication under high-discipline military standards.
+                Taught technical systems for 3 years under military discipline—clarity and structured communication.
               </p>
-              <div className="interest-tags" style={{ marginTop: 'auto' }}>
-                <span className="interest-tag">Pedagogy</span>
-                <span className="interest-tag">Code Logic</span>
-                <span className="interest-tag">Clarity</span>
-              </div>
             </div>
           </RevealStagger>
 
-          {/* Skills & Tools Ecosystem Matrix */}
-          <Reveal className="skills-matrix-wrapper glass-panel-sm" style={{ marginTop: '1.5rem', padding: '2rem' }}>
-            <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.35rem', marginBottom: '1.25rem', color: 'var(--text)' }}>
-              Tools &amp; Capabilities Ecosystem
-            </h3>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.5rem' }}>
-              <div>
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', textTransform: 'uppercase', color: 'var(--accent)', fontWeight: 'bold' }}>Design &amp; Systems</span>
-                <ul className="resume-bullets" style={{ marginTop: '8px' }}>
-                  <li>Figma Variables &amp; Tokens</li>
-                  <li>Design System Governance</li>
-                  <li>Interactive Prototyping</li>
-                  <li>Component Libraries</li>
-                </ul>
-              </div>
-              <div>
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', textTransform: 'uppercase', color: 'var(--accent)', fontWeight: 'bold' }}>UX Research &amp; AI</span>
-                <ul className="resume-bullets" style={{ marginTop: '8px' }}>
-                  <li>1-on-1 User Interviews</li>
-                  <li>Generative AI Prompt UX</li>
-                  <li>Affinity &amp; Empathy Mapping</li>
-                  <li>SUS Usability Surveys</li>
-                </ul>
-              </div>
-              <div>
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', textTransform: 'uppercase', color: 'var(--accent)', fontWeight: 'bold' }}>Accessibility &amp; Frontend</span>
-                <ul className="resume-bullets" style={{ marginTop: '8px' }}>
-                  <li>WCAG 2.1 AA Audits</li>
-                  <li>Screen Reader Specs</li>
-                  <li>React &amp; TypeScript</li>
-                  <li>Vanilla CSS &amp; HTML5</li>
-                </ul>
-              </div>
+          <Reveal className="skills-matrix-wrapper">
+            <h3 className="skills-matrix-title">Tools &amp; capabilities</h3>
+            <div className="skills-groups-grid">
+              {SKILL_GROUPS.map((group) => (
+                <div key={group.title} className="skills-group">
+                  <span className="skills-group-label">{group.title}</span>
+                  <ul className="skills-list">
+                    {group.items.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </div>
 
-            {/* Verified Certifications Sub-block */}
-            <div style={{ marginTop: '2rem', paddingTop: '1.5rem', borderTop: '1px dashed color-mix(in srgb, var(--border) 40%, transparent)' }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', marginBottom: '1rem' }}>
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', color: 'var(--accent)', fontWeight: 'bold', letterSpacing: '0.05em' }}>
-                  🏆 Verified Professional Certifications
-                </span>
-              </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
-                {/* IBM AI Cert */}
-                <div
-                  style={{
-                    background: 'color-mix(in srgb, var(--surface) 60%, transparent)',
-                    padding: '1.25rem',
-                    borderRadius: '16px',
-                    border: '1px solid color-mix(in srgb, var(--accent) 35%, transparent)',
-                    display: 'flex',
-                    flexDirection: 'column'
-                  }}
-                >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
-                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', background: 'color-mix(in srgb, var(--accent) 20%, transparent)', color: 'var(--accent)', padding: '2px 8px', borderRadius: '6px', fontWeight: 'bold' }}>
-                      IBM &bull; 2026
+            <div className="certs-block">
+              <span className="certs-heading">Certifications</span>
+              <ul className="certs-list">
+                {CERTS.map((cert) => (
+                  <li key={cert.href} className="certs-list-item">
+                    <span className="certs-meta">
+                      {cert.issuer} &middot; {cert.year}
                     </span>
-                  </div>
-                  <h4 style={{ fontSize: '1rem', fontWeight: 700, margin: '0 0 6px 0' }}>
                     <a
-                      href="https://coursera.org/share/c78fd5d739d3dd819d5b34649ce879e2"
+                      href={cert.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      style={{ color: 'var(--accent)', textDecoration: 'underline' }}
+                      className="certs-link"
                     >
-                      Introduction to Artificial Intelligence (AI)
+                      {cert.title}
                     </a>
-                  </h4>
-                  <p style={{ fontSize: '0.84rem', opacity: 0.85, lineHeight: '1.45', margin: 0 }}>
-                    Foundational AI concepts, neural networks, machine learning algorithms, and generative AI product workflows.
-                  </p>
-                </div>
-
-                {/* Google UX Cert */}
-                <div
-                  style={{
-                    background: 'color-mix(in srgb, var(--surface) 40%, transparent)',
-                    padding: '1.25rem',
-                    borderRadius: '16px',
-                    border: '1px solid color-mix(in srgb, var(--border) 30%, transparent)',
-                    display: 'flex',
-                    flexDirection: 'column'
-                  }}
-                >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
-                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', background: 'color-mix(in srgb, var(--border) 40%, transparent)', color: 'var(--text)', padding: '2px 8px', borderRadius: '6px', fontWeight: 'bold' }}>
-                      Google &bull; 2025
-                    </span>
-                  </div>
-                  <h4 style={{ fontSize: '1rem', fontWeight: 700, margin: '0 0 6px 0' }}>
-                    <a
-                      href="https://www.credly.com/badges/aee2e68f-151f-4859-891a-6eafb2865cf8/public_url"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{ color: 'var(--accent)', textDecoration: 'underline' }}
-                    >
-                      Google UX Design Professional Certificate
-                    </a>
-                  </h4>
-                  <p style={{ fontSize: '0.84rem', opacity: 0.85, lineHeight: '1.45', margin: 0 }}>
-                    End-to-end UX process: user research, wireframing, prototyping, usability testing, and accessibility.
-                  </p>
-                </div>
-
-                {/* HCI Cert */}
-                <div
-                  style={{
-                    background: 'color-mix(in srgb, var(--surface) 40%, transparent)',
-                    padding: '1.25rem',
-                    borderRadius: '16px',
-                    border: '1px solid color-mix(in srgb, var(--border) 30%, transparent)',
-                    display: 'flex',
-                    flexDirection: 'column'
-                  }}
-                >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
-                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', background: 'color-mix(in srgb, var(--border) 40%, transparent)', color: 'var(--text)', padding: '2px 8px', borderRadius: '6px', fontWeight: 'bold' }}>
-                      BITS Pilani &bull; 2026
-                    </span>
-                  </div>
-                  <h4 style={{ fontSize: '1rem', fontWeight: 700, margin: '0 0 6px 0' }}>
-                    <a
-                      href="https://www.coursera.org/account/accomplishments/verify/AT79DM7RUO7V"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{ color: 'var(--accent)', textDecoration: 'underline' }}
-                    >
-                      Human-Computer Interaction (HCI)
-                    </a>
-                  </h4>
-                  <p style={{ fontSize: '0.84rem', opacity: 0.85, lineHeight: '1.45', margin: 0 }}>
-                    Advanced interaction paradigms, user-centered design principles, and cognitive psychology applied to digital interfaces.
-                  </p>
-                </div>
-              </div>
+                  </li>
+                ))}
+              </ul>
             </div>
           </Reveal>
         </div>
