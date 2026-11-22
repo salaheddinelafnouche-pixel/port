@@ -3282,53 +3282,145 @@ body:has(.hero-mystical):not(.is-scrolled) .hamburger:hover {
 }
 
 .who-iam-header {
-  margin-bottom: 2rem;
-  max-width: 640px;
+  margin-bottom: 1.75rem;
+  max-width: 36rem;
 }
 
-.who-iam-pillars {
+.who-iam-arc {
+  list-style: none;
+  margin: 0 0 2.75rem;
+  padding: 0;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2rem 2.5rem;
-  margin-bottom: 2rem;
+  gap: 0;
+  max-width: 52rem;
+  border-left: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
 }
 
-@media (min-width: 768px) {
-  .who-iam-pillars {
-    grid-template-columns: repeat(3, 1fr);
+@media (min-width: 900px) {
+  .who-iam-arc {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-left: none;
+    border-top: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
   }
 }
 
-.who-iam-pillar {
+.who-iam-arc-item {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.55rem;
+  padding: 1rem 0 1.25rem 1.25rem;
+  position: relative;
 }
 
-.who-iam-pillar-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  margin-bottom: 4px;
+@media (min-width: 900px) {
+  .who-iam-arc-item {
+    padding: 1.25rem 1.5rem 0 0;
+  }
+
+  .who-iam-arc-item:not(:last-child) {
+    padding-right: 1.75rem;
+  }
+}
+
+.who-iam-arc-item::before {
+  content: '';
+  position: absolute;
+  left: -4px;
+  top: 1.25rem;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+@media (min-width: 900px) {
+  .who-iam-arc-item::before {
+    left: 0;
+    top: -4px;
+  }
+}
+
+.who-iam-arc-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 0.65rem;
+}
+
+.who-iam-arc-index {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
   color: var(--accent);
+  font-weight: 700;
 }
 
-.who-iam-pillar h3 {
+.who-iam-arc-phase {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text);
+  opacity: 0.55;
+}
+
+.who-iam-arc-text {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--text);
+  max-width: 34ch;
+}
+
+.who-iam-proof {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.75rem 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .who-iam-proof {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.who-iam-proof-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding-top: 1rem;
+  border-top: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
+}
+
+.who-iam-proof-metric {
+  font-family: var(--font-mono);
+  font-size: 1.65rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--accent);
+  margin-bottom: 0.35rem;
+}
+
+.who-iam-proof-title {
   font-family: var(--font-serif);
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   font-weight: 800;
   color: var(--text);
   margin: 0;
+  line-height: 1.25;
 }
 
-.who-iam-pillar p {
-  font-size: 0.92rem;
-  color: var(--text);
-  opacity: 0.85;
-  line-height: 1.55;
+.who-iam-proof-text {
   margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--text);
+  opacity: 0.78;
+  max-width: 28ch;
 }
 
 /* Interactive Process Tab Switcher */

@@ -343,46 +343,55 @@ export const AboutPage: React.FC = () => {
         <div className="container">
           <Reveal className="section-header who-iam-header">
             <p className="section-label">Who I Am</p>
-            <h2 id="narrative-heading" className="section-title">Overview</h2>
-            <p className="section-desc">
-              Systems thinking with human empathy—products that feel effortless and perform at scale.
-            </p>
+            <h2 id="narrative-heading" className="section-title">From drills to design</h2>
           </Reveal>
 
-          <RevealStagger className="who-iam-pillars">
-            <div className="who-iam-pillar" data-reveal>
-              <div className="who-iam-pillar-icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                </svg>
+          <RevealStagger as="ol" className="who-iam-arc" aria-label="My path from teaching to product design">
+            <li className="who-iam-arc-item" data-reveal>
+              <div className="who-iam-arc-meta">
+                <span className="who-iam-arc-index" aria-hidden="true">01</span>
+                <span className="who-iam-arc-phase">Then</span>
               </div>
-              <h3>Military Discipline</h3>
-              <p>Taught programming for 3 years in a military institution—clarity, high standards, structured communication under pressure.</p>
-            </div>
+              <p className="who-iam-arc-text">
+                For three years I taught programming inside a military institution—turning hard systems into paths people could follow under pressure.
+              </p>
+            </li>
+            <li className="who-iam-arc-item" data-reveal>
+              <div className="who-iam-arc-meta">
+                <span className="who-iam-arc-index" aria-hidden="true">02</span>
+                <span className="who-iam-arc-phase">Bridge</span>
+              </div>
+              <p className="who-iam-arc-text">
+                That habit never left. I still start with the human friction, then build the product around it.
+              </p>
+            </li>
+            <li className="who-iam-arc-item" data-reveal>
+              <div className="who-iam-arc-meta">
+                <span className="who-iam-arc-index" aria-hidden="true">03</span>
+                <span className="who-iam-arc-phase">Now</span>
+              </div>
+              <p className="who-iam-arc-text">
+                Today I&rsquo;m a Google-certified product designer shipping 0-to-1 work across AI, fragrance discovery, and adaptive learning.
+              </p>
+            </li>
+          </RevealStagger>
 
-            <div className="who-iam-pillar" data-reveal>
-              <div className="who-iam-pillar-icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M9 18h6" />
-                  <path d="M10 22h4" />
-                  <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1.55.59 2.95 1.5 4 .77.77 1.24 1.53 1.41 2.5" />
-                </svg>
-              </div>
-              <h3>User-Centred UX</h3>
-              <p>At Tech4U, built an adaptive &ldquo;Soft Program&rdquo; for shift workers that boosted retention by 40%.</p>
-            </div>
-
-            <div className="who-iam-pillar" data-reveal>
-              <div className="who-iam-pillar-icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <polygon points="12 2 2 7 12 12 22 7 12 2" />
-                  <polyline points="2 17 12 22 22 17" />
-                  <polyline points="2 12 12 17 22 12" />
-                </svg>
-              </div>
-              <h3>End-to-End Craft</h3>
-              <p>Research packs to Figma tokens, WCAG 2.1 AA audits, and live React prototypes—end to end.</p>
-            </div>
+          <RevealStagger as="ul" className="who-iam-proof" role="list" aria-label="What that looks like in practice">
+            <li className="who-iam-proof-item" data-reveal>
+              <span className="who-iam-proof-metric">3 yrs</span>
+              <h3 className="who-iam-proof-title">Military Discipline</h3>
+              <p className="who-iam-proof-text">Taught programming to military cohorts—clarity and calm when stakes are high.</p>
+            </li>
+            <li className="who-iam-proof-item" data-reveal>
+              <span className="who-iam-proof-metric">+40%</span>
+              <h3 className="who-iam-proof-title">User-Centred UX</h3>
+              <p className="who-iam-proof-text">Tech4U Soft Program for shift workers—projected learner retention lift.</p>
+            </li>
+            <li className="who-iam-proof-item" data-reveal>
+              <span className="who-iam-proof-metric">E2E</span>
+              <h3 className="who-iam-proof-title">End-to-End Craft</h3>
+              <p className="who-iam-proof-text">Research → Figma tokens → WCAG 2.1 AA → live React. What ships is what we tested.</p>
+            </li>
           </RevealStagger>
         </div>
       </section>

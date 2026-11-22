@@ -1,7 +1,7 @@
 import React from 'react';
 import { useReveal, useRevealStagger } from '../hooks/useReveal';
 
-type RevealTag = 'div' | 'section' | 'article' | 'li' | 'ul' | 'p' | 'h1' | 'h2' | 'blockquote';
+type RevealTag = 'div' | 'section' | 'article' | 'li' | 'ul' | 'ol' | 'p' | 'h1' | 'h2' | 'blockquote';
 
 type RevealProps = React.HTMLAttributes<HTMLElement> & {
   as?: RevealTag;
