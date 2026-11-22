@@ -108,6 +108,12 @@ const CERTS = [
   {
     issuer: 'IBM',
     year: '2026',
+    title: 'Generative AI: The Future of UX UI Design',
+    href: 'https://coursera.org/share/3e428eac6b9a8dffbbc192115696b097',
+  },
+  {
+    issuer: 'IBM',
+    year: '2026',
     title: 'Introduction to Artificial Intelligence (AI)',
     href: 'https://coursera.org/share/c78fd5d739d3dd819d5b34649ce879e2',
   },

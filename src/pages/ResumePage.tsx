@@ -180,6 +180,28 @@ export const ResumePage: React.FC = () => {
             <div>
               <div className="edu-title-line">
                 <a
+                  href="https://coursera.org/share/3e428eac6b9a8dffbbc192115696b097"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="edu-degree"
+                  style={{ color: 'var(--accent)', textDecoration: 'underline' }}
+                >
+                  Generative AI: The Future of UX UI Design
+                </a>
+                <span className="entry-pipe">|</span>
+                <span className="edu-school">IBM &bull; Coursera</span>
+              </div>
+              <div className="edu-desc">
+                GenAI in UX/UI workflows: <strong>personas</strong>, <strong>journey maps</strong>, AI-assisted <strong>wireframes &amp; prototypes</strong>, and conversational UX with tools like UXPilot, Miro, and Figma.
+              </div>
+            </div>
+          </div>
+
+          <div className="edu-entry">
+            <div className="edu-date">2026</div>
+            <div>
+              <div className="edu-title-line">
+                <a
                   href="https://coursera.org/share/c78fd5d739d3dd819d5b34649ce879e2"
                   target="_blank"
                   rel="noopener noreferrer"
