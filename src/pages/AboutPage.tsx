@@ -50,27 +50,18 @@ const SECTION_LINKS = [
 const CAREER_HIGHLIGHTS: Array<{
   projectId: string;
   title: string;
-  body: React.ReactNode;
 }> = [
   {
     projectId: 'hiking-mode',
     title: 'Lead UX Designer @ Google Maps Hiking Mode',
-    body: 'Backpacker-led Hiking mode—corridor, day plan, offline pack—from research (n≈124 survey, n=8 interviews).',
   },
   {
     projectId: 'youscent-saas',
     title: 'Lead SaaS Designer @ YouScent',
-    body: 'Digital perfume atelier: memory + archetype colors become a formula with a verification hash.',
   },
   {
     projectId: 'tech4u',
     title: 'Founder & Lead UX @ Tech4U',
-    body: (
-      <>
-        Adaptive &ldquo;Soft Program&rdquo; for an equity-focused e-learning platform—{' '}
-        <strong>40% retention increase</strong>.
-      </>
-    ),
   },
 ];
 
@@ -300,7 +291,6 @@ export const AboutPage: React.FC = () => {
       ...highlight,
       date: project.date,
       link: project.link,
-      thumb: project.thumb,
     };
   }).filter((item): item is NonNullable<typeof item> => Boolean(item));
 
@@ -371,20 +361,6 @@ export const AboutPage: React.FC = () => {
                 3 Yrs Military Instructor
               </li>
             </ul>
-
-            <nav className="about-hero-jumps" aria-label="Jump to About sections">
-              {SECTION_LINKS.map((link) => (
-                <a
-                  key={link.id}
-                  href={`#${link.id}`}
-                  className="about-jump-pill"
-                  onClick={(e) => handleSectionJump(e, link.id)}
-                >
-                  {link.icon}
-                  {link.label}
-                </a>
-              ))}
-            </nav>
           </Reveal>
         </div>
       </section>
@@ -586,90 +562,65 @@ export const AboutPage: React.FC = () => {
       <section className="resume-section section" id="resume" aria-labelledby="resume-heading">
         <div className="section-watermark" aria-hidden="true">§ 04</div>
         <div className="container">
-          <div className="resume-header">
+          <div className="about-brief-header">
             <div className="section-header" style={{ marginBottom: 0 }}>
               <p className="section-label">Background</p>
               <h2 id="resume-heading" className="section-title">Selected work &amp; credentials</h2>
             </div>
-            <div>
-              <Link to="/resume" className="btn-secondary" aria-label="View full resume online">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                  <circle cx="12" cy="12" r="3" />
-                </svg>
-                View Interactive Resume &rarr;
-              </Link>
-            </div>
+            <Link to="/resume" className="btn-secondary" aria-label="View full resume online">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+              View Interactive Resume &rarr;
+            </Link>
           </div>
 
-          <RevealStagger className="about-bento-grid">
-            {careerProjects.map((project) => (
-              <Link
-                key={project.projectId}
-                to={project.link}
-                className="about-bento-card about-bento-card--linked"
-                data-reveal
-              >
-                <div className="about-bento-thumb">
-                  <img
-                    src={project.thumb}
-                    alt=""
-                    loading="lazy"
-                    width="640"
-                    height="400"
-                  />
-                </div>
-                <span className="career-date">{project.date}</span>
-                <h3 className="bento-card-title">{project.title}</h3>
-                <p className="bento-card-body">{project.body}</p>
-              </Link>
-            ))}
+          <Reveal className="about-brief-panel">
+            <div className="about-brief-block">
+              <span className="about-brief-label">Work</span>
+              <ul className="about-brief-work">
+                {careerProjects.map((project) => (
+                  <li key={project.projectId}>
+                    <Link to={project.link} className="about-brief-row">
+                      <span className="about-brief-date">{project.date}</span>
+                      <span className="about-brief-title">{project.title}</span>
+                    </Link>
+                  </li>
+                ))}
+                <li>
+                  <div className="about-brief-row about-brief-row--static">
+                    <span className="about-brief-date">2021 – 2024</span>
+                    <span className="about-brief-title">Instructor @ C.I.T &bull; Kenitra</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
 
-            <div className="about-bento-card about-bento-card--icon" data-reveal>
-              <div className="about-bento-icon-panel" aria-hidden="true">
-                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                  <path d="M12 8v4M12 16h.01" />
-                </svg>
+            <div className="about-brief-block">
+              <span className="about-brief-label">Skills</span>
+              <div className="about-brief-skills">
+                {SKILL_GROUPS.flatMap((group) => group.items).map((item) => (
+                  <span key={item} className="about-brief-chip">{item}</span>
+                ))}
               </div>
-              <span className="career-date">2021 – 2024</span>
-              <h3 className="bento-card-title">Instructor @ C.I.T &bull; Kenitra</h3>
-              <p className="bento-card-body">
-                Taught technical systems for 3 years under military discipline—clarity and structured communication.
-              </p>
-            </div>
-          </RevealStagger>
-
-          <Reveal className="skills-matrix-wrapper">
-            <h3 className="skills-matrix-title">Tools &amp; capabilities</h3>
-            <div className="skills-groups-grid">
-              {SKILL_GROUPS.map((group) => (
-                <div key={group.title} className="skills-group">
-                  <span className="skills-group-label">{group.title}</span>
-                  <ul className="skills-list">
-                    {group.items.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
             </div>
 
-            <div className="certs-block">
-              <span className="certs-heading">Certifications</span>
-              <ul className="certs-list">
+            <div className="about-brief-block">
+              <span className="about-brief-label">Certifications</span>
+              <ul className="about-brief-certs">
                 {CERTS.map((cert) => (
-                  <li key={cert.href} className="certs-list-item">
-                    <span className="certs-meta">
-                      {cert.issuer} &middot; {cert.year}
-                    </span>
+                  <li key={cert.href}>
                     <a
                       href={cert.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="certs-link"
+                      className="about-brief-row"
                     >
-                      {cert.title}
+                      <span className="about-brief-date">
+                        {cert.issuer} &middot; {cert.year}
+                      </span>
+                      <span className="about-brief-title">{cert.title}</span>
                     </a>
                   </li>
                 ))}
