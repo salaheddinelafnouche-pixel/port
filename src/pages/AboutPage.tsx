@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ContactSection } from '../components/ContactSection';
 import { Reveal, RevealStagger } from '../components/Reveal';
-import { PROJECTS } from '../data/projects';
 
 const SECTION_LINKS = [
   {
@@ -16,22 +15,23 @@ const SECTION_LINKS = [
     ),
   },
   {
+    id: 'influences',
+    label: 'Influences',
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+        <path d="M8 7h8M8 11h6" />
+      </svg>
+    ),
+  },
+  {
     id: 'approach',
     label: 'Engine',
     icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <circle cx="12" cy="12" r="3" />
         <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
-      </svg>
-    ),
-  },
-  {
-    id: 'resume',
-    label: 'Background',
-    icon: (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <rect x="2" y="7" width="20" height="14" rx="2" />
-        <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
       </svg>
     ),
   },
@@ -47,80 +47,12 @@ const SECTION_LINKS = [
   },
 ] as const;
 
-const CAREER_HIGHLIGHTS: Array<{
-  projectId: string;
-  title: string;
-}> = [
-  {
-    projectId: 'hiking-mode',
-    title: 'Lead UX Designer @ Google Maps Hiking Mode',
-  },
-  {
-    projectId: 'youscent-saas',
-    title: 'Lead SaaS Designer @ YouScent',
-  },
-  {
-    projectId: 'tech4u',
-    title: 'Founder & Lead UX @ Tech4U',
-  },
-];
-
-const SKILL_GROUPS = [
-  {
-    title: 'Design & Systems',
-    items: [
-      'Figma Variables & Tokens',
-      'Design System Governance',
-      'Interactive Prototyping',
-      'Component Libraries',
-    ],
-  },
-  {
-    title: 'UX Research & AI',
-    items: [
-      '1-on-1 User Interviews',
-      'Generative AI Prompt UX',
-      'Affinity & Empathy Mapping',
-      'SUS Usability Surveys',
-    ],
-  },
-  {
-    title: 'Accessibility & Frontend',
-    items: [
-      'WCAG 2.1 AA Audits',
-      'Screen Reader Specs',
-      'React & TypeScript',
-      'Vanilla CSS & HTML5',
-    ],
-  },
-];
-
-const CERTS = [
-  {
-    issuer: 'IBM',
-    year: '2026',
-    title: 'Generative AI: The Future of UX UI Design',
-    href: 'https://coursera.org/share/3e428eac6b9a8dffbbc192115696b097',
-  },
-  {
-    issuer: 'IBM',
-    year: '2026',
-    title: 'Introduction to Artificial Intelligence (AI)',
-    href: 'https://coursera.org/share/c78fd5d739d3dd819d5b34649ce879e2',
-  },
-  {
-    issuer: 'Google',
-    year: '2025',
-    title: 'Google UX Design Professional Certificate',
-    href: 'https://www.credly.com/badges/aee2e68f-151f-4859-891a-6eafb2865cf8/public_url',
-  },
-  {
-    issuer: 'BITS Pilani',
-    year: '2026',
-    title: 'Human-Computer Interaction (HCI)',
-    href: 'https://www.coursera.org/account/accomplishments/verify/AT79DM7RUO7V',
-  },
-];
+const COLOR_ARCHETYPES = [
+  { id: 'red', name: 'Red', trait: 'Decisive', design: 'Fast paths, clear CTAs' },
+  { id: 'yellow', name: 'Yellow', trait: 'Expressive', design: 'Story & emotion first' },
+  { id: 'green', name: 'Green', trait: 'Steady', design: 'Calm, reversible steps' },
+  { id: 'blue', name: 'Blue', trait: 'Precise', design: 'Why behind every choice' },
+] as const;
 
 export const AboutPage: React.FC = () => {
   const [roleText, setRoleText] = useState('');
@@ -225,7 +157,15 @@ export const AboutPage: React.FC = () => {
         'Competitive audits & positioning',
         'Problem framing & feature scoping'
       ],
-      metric: '18 qualitative interviews for YouScent & Tech4U'
+      metric: '18 qualitative interviews for YouScent & Tech4U',
+      example: {
+        src: '/assets/youscent-thumb.png',
+        alt: 'YouScent AI fragrance discovery product surface',
+        caption: 'Framed shopper jargon friction before any UI—interviews first.',
+        projectLabel: 'YouScent',
+        projectLink: '/youscent',
+        fit: 'cover' as const,
+      },
     },
     {
       id: '02',
@@ -244,7 +184,15 @@ export const AboutPage: React.FC = () => {
         'Lo-fi to interactive hi-fi loops',
         'Design system & token docs'
       ],
-      metric: '81.4 System Usability Scale (SUS) achieved'
+      metric: '81.4 System Usability Scale (SUS) achieved',
+      example: {
+        src: '/hiking-mode/wireframes/04-route-overview.svg',
+        alt: 'Hiking Mode lo-fi wireframe for route overview',
+        caption: 'Lo-fi route overview—IA before hi-fi pixels.',
+        projectLabel: 'Hiking Mode',
+        projectLink: '/hiking-mode',
+        fit: 'contain' as const,
+      },
     },
     {
       id: '03',
@@ -262,7 +210,15 @@ export const AboutPage: React.FC = () => {
         'Screen reader & contrast audits',
         'Iterate from empirical proof'
       ],
-      metric: '100% WCAG 2.1 AA compliance package delivered'
+      metric: '100% WCAG 2.1 AA compliance package delivered',
+      example: {
+        src: '/assets/youscent-saas-thumb.png',
+        alt: 'YouScent SaaS atelier compose flow',
+        caption: 'Usability loops against a SUS ≥ 80 bar on the atelier flow.',
+        projectLabel: 'YouScent SaaS',
+        projectLink: '/youscent-saas',
+        fit: 'cover' as const,
+      },
     },
     {
       id: '04',
@@ -280,19 +236,17 @@ export const AboutPage: React.FC = () => {
         'Edge-case & state mapping',
         'Eng sync & post-launch QA'
       ],
-      metric: '73% first-time conversion on YouScent AI'
-    }
+      metric: '73% first-time conversion on YouScent AI',
+      example: {
+        src: '/assets/tech4u-thumb.png',
+        alt: 'Tech4U adaptive learning platform',
+        caption: 'WCAG 2.1 AA system tokens handed off for production.',
+        projectLabel: 'Tech4U',
+        projectLink: '/tech4u',
+        fit: 'cover' as const,
+      },
+    },
   ];
-
-  const careerProjects = CAREER_HIGHLIGHTS.map((highlight) => {
-    const project = PROJECTS.find((p) => p.id === highlight.projectId);
-    if (!project) return null;
-    return {
-      ...highlight,
-      date: project.date,
-      link: project.link,
-    };
-  }).filter((item): item is NonNullable<typeof item> => Boolean(item));
 
   const activePhase = enginePhases[activeEnginePhase];
 
@@ -430,46 +384,60 @@ export const AboutPage: React.FC = () => {
               <p>Research packs to Figma tokens, WCAG 2.1 AA audits, and live React prototypes—end to end.</p>
             </div>
           </RevealStagger>
+        </div>
+      </section>
 
-          <Reveal className="who-iam-principles">
-            <span className="who-iam-principles-label">Principles</span>
-            <ul className="who-iam-principles-list">
-              <li>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <circle cx="12" cy="12" r="10" />
-                  <circle cx="12" cy="12" r="6" />
-                  <circle cx="12" cy="12" r="2" />
-                </svg>
-                Clarity over cleverness
-              </li>
-              <li>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-                </svg>
-                Stress-test the happy path
-              </li>
-              <li>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <line x1="18" y1="20" x2="18" y2="10" />
-                  <line x1="12" y1="20" x2="12" y2="4" />
-                  <line x1="6" y1="20" x2="6" y2="14" />
-                </svg>
-                Evidence over opinion
-              </li>
-            </ul>
+      {/* 3. Reading Influences & Four-Color Lens */}
+      <section className="influences-section section" id="influences" aria-label="What shapes my craft">
+        <div className="section-watermark" aria-hidden="true">§ 02</div>
+        <div className="container">
+          <Reveal className="influences-layout">
+            <figure className="influences-media">
+              <img
+                src="/assets/surrounded-by-idiots.jpg"
+                alt="Surrounded by Idiots by Thomas Erikson — the four-color communication book"
+                width={1600}
+                height={900}
+                loading="lazy"
+                decoding="async"
+              />
+            </figure>
+
+            <div className="influences-copy">
+              <p className="section-label">What Shapes My Craft</p>
+              <p className="influences-lede">
+                <em>Surrounded by Idiots</em> breaks how people communicate into four colors. That model is
+                what I carry into design—especially YouScent—so each mind type gets a clear path.
+              </p>
+
+              <ul className="influences-color-row" aria-label="Four color communication archetypes">
+                {COLOR_ARCHETYPES.map((color) => (
+                  <li key={color.id} className={`influences-color-chip influences-color-chip--${color.id}`}>
+                    <span className="influences-color-swatch" aria-hidden="true" />
+                    <span className="influences-color-name">{color.name}</span>
+                    <span className="influences-color-trait">{color.trait}</span>
+                    <span className="influences-color-design">{color.design}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <Link to="/youscent" className="influences-case-link">
+                See how this shows up on YouScent &rarr;
+              </Link>
+            </div>
           </Reveal>
         </div>
       </section>
 
-      {/* 3. Problem-Solving Approach Section */}
+      {/* 4. Problem-Solving Approach Section */}
       <section className="approach-section section" id="approach" aria-labelledby="approach-heading">
-        <div className="section-watermark" aria-hidden="true">§ 02</div>
+        <div className="section-watermark" aria-hidden="true">§ 03</div>
         <div className="container">
           <Reveal className="section-header approach-section-header">
             <p className="section-label">My Process Engine</p>
             <h2 id="approach-heading" className="section-title">How I ship 0-to-1 products</h2>
             <p className="section-desc">
-              Four phases from ambiguous brief to accessible, high-impact digital products.
+              Four phases—each with a real artifact from shipped work.
             </p>
           </Reveal>
 
@@ -508,6 +476,27 @@ export const AboutPage: React.FC = () => {
 
               <p className="engine-console-subtitle">{activePhase.subtitle}</p>
 
+              <figure className={`engine-example${activePhase.example.fit === 'contain' ? ' engine-example--contain' : ''}`}>
+                <div className="engine-example-media">
+                  <img
+                    key={activePhase.example.src}
+                    src={activePhase.example.src}
+                    alt={activePhase.example.alt}
+                    className="engine-example-img"
+                    loading="lazy"
+                    width="640"
+                    height="400"
+                  />
+                </div>
+                <figcaption className="engine-example-caption">
+                  <span className="engine-example-label">In practice</span>
+                  <p className="engine-example-text">{activePhase.example.caption}</p>
+                  <Link to={activePhase.example.projectLink} className="engine-example-link">
+                    {activePhase.example.projectLabel} case study &rarr;
+                  </Link>
+                </figcaption>
+              </figure>
+
               <ul className="engine-check-grid">
                 {activePhase.steps.map((step, sIdx) => (
                   <li key={sIdx} className="engine-check-item">
@@ -542,9 +531,9 @@ export const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 4. Peer Validation Testimonial Banner */}
+      {/* 5. Peer Validation Testimonial Banner */}
       <section className="testimonial-section section">
-        <div className="section-watermark" aria-hidden="true">§ 03</div>
+        <div className="section-watermark" aria-hidden="true">§ 04</div>
         <div className="container">
           <Reveal as="blockquote" className="testimonial-glass-card">
             <div className="testimonial-quote-mark" aria-hidden="true">“</div>
@@ -558,79 +547,7 @@ export const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 5. Resume & Background Highlights Section */}
-      <section className="resume-section section" id="resume" aria-labelledby="resume-heading">
-        <div className="section-watermark" aria-hidden="true">§ 04</div>
-        <div className="container">
-          <div className="about-brief-header">
-            <div className="section-header" style={{ marginBottom: 0 }}>
-              <p className="section-label">Background</p>
-              <h2 id="resume-heading" className="section-title">Selected work &amp; credentials</h2>
-            </div>
-            <Link to="/resume" className="btn-secondary" aria-label="View full resume online">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                <circle cx="12" cy="12" r="3" />
-              </svg>
-              View Interactive Resume &rarr;
-            </Link>
-          </div>
-
-          <Reveal className="about-brief-panel">
-            <div className="about-brief-block">
-              <span className="about-brief-label">Work</span>
-              <ul className="about-brief-work">
-                {careerProjects.map((project) => (
-                  <li key={project.projectId}>
-                    <Link to={project.link} className="about-brief-row">
-                      <span className="about-brief-date">{project.date}</span>
-                      <span className="about-brief-title">{project.title}</span>
-                    </Link>
-                  </li>
-                ))}
-                <li>
-                  <div className="about-brief-row about-brief-row--static">
-                    <span className="about-brief-date">2021 – 2024</span>
-                    <span className="about-brief-title">Instructor @ C.I.T &bull; Kenitra</span>
-                  </div>
-                </li>
-              </ul>
-            </div>
-
-            <div className="about-brief-block">
-              <span className="about-brief-label">Skills</span>
-              <div className="about-brief-skills">
-                {SKILL_GROUPS.flatMap((group) => group.items).map((item) => (
-                  <span key={item} className="about-brief-chip">{item}</span>
-                ))}
-              </div>
-            </div>
-
-            <div className="about-brief-block">
-              <span className="about-brief-label">Certifications</span>
-              <ul className="about-brief-certs">
-                {CERTS.map((cert) => (
-                  <li key={cert.href}>
-                    <a
-                      href={cert.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="about-brief-row"
-                    >
-                      <span className="about-brief-date">
-                        {cert.issuer} &middot; {cert.year}
-                      </span>
-                      <span className="about-brief-title">{cert.title}</span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* 6. High-Converting Contact Section */}
+      {/* 5. High-Converting Contact Section */}
       <ContactSection
         sectionLabel="Let's Talk"
         title="Got a messy problem and real users?"
