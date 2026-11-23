@@ -161,7 +161,7 @@ export const AboutPage: React.FC = () => {
       example: {
         src: '/assets/youscent-thumb.png',
         alt: 'YouScent AI fragrance discovery product surface',
-        caption: 'Framed shopper jargon friction before any UI—interviews first.',
+        caption: 'Framed shopper jargon friction before any UI interviews first.',
         projectLabel: 'YouScent',
         projectLink: '/youscent',
         fit: 'cover' as const,
@@ -188,7 +188,7 @@ export const AboutPage: React.FC = () => {
       example: {
         src: '/hiking-mode/wireframes/04-route-overview.svg',
         alt: 'Hiking Mode lo-fi wireframe for route overview',
-        caption: 'Lo-fi route overview—IA before hi-fi pixels.',
+        caption: 'Lo-fi route overview IA before hi-fi pixels.',
         projectLabel: 'Hiking Mode',
         projectLink: '/hiking-mode',
         fit: 'contain' as const,
@@ -353,7 +353,7 @@ export const AboutPage: React.FC = () => {
                 <span className="who-iam-arc-phase">Then</span>
               </div>
               <p className="who-iam-arc-text">
-                For three years I taught programming inside a military institution—turning hard systems into paths people could follow under pressure.
+                For three years I taught programming inside a military institution turning hard systems into paths people could follow under pressure.
               </p>
             </li>
             <li className="who-iam-arc-item" data-reveal>
@@ -380,12 +380,12 @@ export const AboutPage: React.FC = () => {
             <li className="who-iam-proof-item" data-reveal>
               <span className="who-iam-proof-metric">3 yrs</span>
               <h3 className="who-iam-proof-title">Military Discipline</h3>
-              <p className="who-iam-proof-text">Taught programming to military cohorts—clarity and calm when stakes are high.</p>
+              <p className="who-iam-proof-text">Taught programming to military cohorts clarity and calm when stakes are high.</p>
             </li>
             <li className="who-iam-proof-item" data-reveal>
               <span className="who-iam-proof-metric">+40%</span>
               <h3 className="who-iam-proof-title">User-Centred UX</h3>
-              <p className="who-iam-proof-text">Tech4U Soft Program for shift workers—projected learner retention lift.</p>
+              <p className="who-iam-proof-text">Tech4U Soft Program for shift workers projected learner retention lift.</p>
             </li>
             <li className="who-iam-proof-item" data-reveal>
               <span className="who-iam-proof-metric">E2E</span>
@@ -404,7 +404,7 @@ export const AboutPage: React.FC = () => {
             <figure className="influences-media">
               <img
                 src="/assets/surrounded-by-idiots.jpg"
-                alt="Surrounded by Idiots by Thomas Erikson — the four-color communication book"
+                alt="Surrounded by Idiots by Thomas Erikson the four-color communication book"
                 width={1600}
                 height={900}
                 loading="lazy"
@@ -416,7 +416,7 @@ export const AboutPage: React.FC = () => {
               <p className="section-label">What Shapes My Craft</p>
               <p className="influences-lede">
                 <em>Surrounded by Idiots</em> breaks how people communicate into four colors. That model is
-                what I carry into design—especially YouScent—so each mind type gets a clear path.
+                what I carry into design especially YouScent so each mind type gets a clear path.
               </p>
 
               <ul className="influences-color-row" aria-label="Four color communication archetypes">
@@ -446,7 +446,7 @@ export const AboutPage: React.FC = () => {
             <p className="section-label">My Process Engine</p>
             <h2 id="approach-heading" className="section-title">How I ship 0-to-1 products</h2>
             <p className="section-desc">
-              Four phases—each with a real artifact from shipped work.
+              Four phases each with a real artifact from shipped work.
             </p>
           </Reveal>
 
@@ -547,10 +547,10 @@ export const AboutPage: React.FC = () => {
           <Reveal as="blockquote" className="testimonial-glass-card">
             <div className="testimonial-quote-mark" aria-hidden="true">“</div>
             <p className="testimonial-quote">
-              "It's really cool, especially with the sketchy style of the fonts and graphics. I also noticed the accessibility features, and they’re clearly well thought out—great job on that."
+              "It's really cool, especially with the sketchy style of the fonts and graphics. I also noticed the accessibility features, and they’re clearly well thought out great job on that."
             </p>
             <footer className="testimonial-author">
-              — Velika, UX Designer at Coursera Community —
+              Velika, UX Designer at Coursera Community
             </footer>
           </Reveal>
         </div>
